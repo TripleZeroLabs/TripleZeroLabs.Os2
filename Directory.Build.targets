@@ -1,0 +1,21 @@
+<Project>
+
+  <!--
+    Signs built outputs with Azure Trusted Signing so Smart App Control / Windows Defender
+    trusts them by signature rather than cloud reputation. A freshly-built unsigned DLL or
+    EXE has no cloud reputation and can be blocked at random.
+
+    Best-effort: installer\sign-debug.ps1 warns and exits 0 when the Azure credentials,
+    signtool, the DLIB, or signing-metadata.json are missing — builds never break.
+  -->
+  <Target Name="SignOutputAfterBuild" AfterTargets="Build">
+    <PropertyGroup>
+      <_SignScript>$(MSBuildThisFileDirectory)installer\sign-debug.ps1</_SignScript>
+    </PropertyGroup>
+    <!-- Trailing "." keeps the quoted path from ending in a backslash (which would escape the quote). -->
+    <Exec Condition="Exists('$(_SignScript)')"
+          ContinueOnError="true"
+          Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(_SignScript)&quot; -Folder &quot;$(TargetDir).&quot;" />
+  </Target>
+
+</Project>

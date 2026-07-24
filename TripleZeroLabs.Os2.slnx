@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TripleZeroLabs.Os2.Gallery/TripleZeroLabs.Os2.Gallery.csproj" />
+  <Project Path="TripleZeroLabs.Os2/TripleZeroLabs.Os2.csproj" />
+</Solution>

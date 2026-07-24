@@ -1,0 +1,324 @@
+<Window x:Class="TripleZeroLabs.Os2.Gallery.Window_ThemeGallery"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TripleZeroLabs.Os2.Gallery"
+        mc:Ignorable="d"
+        Title="OS2 Elements Gallery"
+        Icon="pack://application:,,,/TripleZeroLabs.Os2.Gallery;component/assets/icon.png"
+        FontFamily="Segoe UI" FontSize="13"
+        Background="{DynamicResource OS2.Brush.Background}"
+        Width="1040" Height="820"
+        MinWidth="720" MinHeight="520"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TripleZeroLabs.Os2;component/Themes/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Local helpers used only by this gallery -->
+            <Style x:Key="Gallery.Card" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource OS2.Brush.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource OS2.Brush.Border}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="Margin" Value="0,0,0,16" />
+            </Style>
+            <Style x:Key="Gallery.SectionTitle" TargetType="TextBlock" BasedOn="{StaticResource OS2.Text.Heading}">
+                <Setter Property="Margin" Value="0,0,0,4" />
+            </Style>
+            <Style x:Key="Gallery.SectionCaption" TargetType="TextBlock" BasedOn="{StaticResource OS2.Text.Caption}">
+                <Setter Property="Margin" Value="0,0,0,16" />
+            </Style>
+            <Style x:Key="Gallery.StateLabel" TargetType="TextBlock" BasedOn="{StaticResource OS2.Text.Caption}">
+                <Setter Property="Margin" Value="0,0,0,6" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header banner (dark toolbar chrome) -->
+        <Border Grid.Row="0" Background="{DynamicResource OS2.Brush.Toolbar}" Padding="28,20">
+            <StackPanel>
+                <TextBlock Text="OS2 by Triple Zero Labs"
+                           Foreground="{DynamicResource OS2.Brush.ToolbarForeground}"
+                           FontSize="24" FontWeight="SemiBold"/>
+                <TextBlock Text="Component gallery — buttons, inputs, data grid, tabs, and colors with their hover and active states."
+                           Foreground="#C7D0DA" Margin="0,4,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="28,24">
+            <StackPanel MaxWidth="940" HorizontalAlignment="Left">
+
+                <!-- ============ Typography ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <StackPanel>
+                        <TextBlock Text="Typography" Style="{StaticResource Gallery.SectionTitle}"/>
+                        <TextBlock Text="Heading, body, caption, and label styles." Style="{StaticResource Gallery.SectionCaption}"/>
+                        <TextBlock Text="Heading (OS2.Text.Heading)" Style="{StaticResource OS2.Text.Heading}" Margin="0,0,0,8"/>
+                        <TextBlock Text="Body text uses the default TextBlock style — 13px Segoe UI in the primary text color, wrapping by default so longer passages flow naturally across the available width."
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="Caption text (OS2.Text.Caption) — smaller and subdued for secondary information." Style="{StaticResource OS2.Text.Caption}" Margin="0,0,0,8"/>
+                        <Label Content="Label control — form field labels"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ Buttons ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <StackPanel>
+                        <TextBlock Text="Buttons" Style="{StaticResource Gallery.SectionTitle}"/>
+                        <TextBlock Text="Hover and press each button to see its live states. The right column shows the disabled state."
+                                   Style="{StaticResource Gallery.SectionCaption}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- column headers -->
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Enabled" Style="{StaticResource Gallery.StateLabel}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Disabled" Style="{StaticResource Gallery.StateLabel}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Primary (default)" VerticalAlignment="Center"/>
+                            <Button Grid.Row="1" Grid.Column="1" Content="Create Parameter" Margin="0,6" MinWidth="150"/>
+                            <Button Grid.Row="1" Grid.Column="2" Content="Create Parameter" Margin="16,6,0,6" MinWidth="150" IsEnabled="False"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Secondary (outline)" VerticalAlignment="Center"/>
+                            <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource OS2.Button.Secondary}" Content="Download TXT File" Margin="0,6" MinWidth="150"/>
+                            <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource OS2.Button.Secondary}" Content="Download TXT File" Margin="16,6,0,6" MinWidth="150" IsEnabled="False"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Danger (outline)" VerticalAlignment="Center"/>
+                            <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource OS2.Button.Danger}" Content="Delete Collection" Margin="0,6" MinWidth="150"/>
+                            <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource OS2.Button.Danger}" Content="Delete Collection" Margin="16,6,0,6" MinWidth="150" IsEnabled="False"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Danger (solid)" VerticalAlignment="Center"/>
+                            <Button Grid.Row="4" Grid.Column="1" Style="{StaticResource OS2.Button.DangerSolid}" Content="Delete Permanently" Margin="0,6" MinWidth="150"/>
+                            <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource OS2.Button.DangerSolid}" Content="Delete Permanently" Margin="16,6,0,6" MinWidth="150" IsEnabled="False"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Flat (text)" VerticalAlignment="Center"/>
+                            <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource OS2.Button.Flat}" Content="Cancel" Margin="0,6" MinWidth="150"/>
+                            <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource OS2.Button.Flat}" Content="Cancel" Margin="16,6,0,6" MinWidth="150" IsEnabled="False"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Success (solid)" VerticalAlignment="Center"/>
+                            <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource OS2.Button.Success}" Content="Publish Changes" Margin="0,6" MinWidth="150"/>
+                            <Button Grid.Row="6" Grid.Column="2" Style="{StaticResource OS2.Button.Success}" Content="Publish Changes" Margin="16,6,0,6" MinWidth="150" IsEnabled="False"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Success (outline)" VerticalAlignment="Center"/>
+                            <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource OS2.Button.SuccessSecondary}" Content="Download Report" Margin="0,6" MinWidth="150"/>
+                            <Button Grid.Row="7" Grid.Column="2" Style="{StaticResource OS2.Button.SuccessSecondary}" Content="Download Report" Margin="16,6,0,6" MinWidth="150" IsEnabled="False"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ Form controls ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <StackPanel>
+                        <TextBlock Text="Form Controls" Style="{StaticResource Gallery.SectionTitle}"/>
+                        <TextBlock Text="Text fields show a focus ring when focused and a muted fill when disabled." Style="{StaticResource Gallery.SectionCaption}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Label Content="TEXTBOX"/>
+                                <TextBox Text="john.doe@example.com" Margin="0,0,0,12"/>
+                                <Label Content="TEXTBOX (DISABLED)"/>
+                                <TextBox Text="Read-only value" IsEnabled="False" Margin="0,0,0,12"/>
+                                <Label Content="PASSWORD"/>
+                                <PasswordBox Password="secret" Margin="0,0,0,12"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <Label Content="COMBOBOX"/>
+                                <ComboBox x:Name="SampleCombo" Margin="0,0,0,12"/>
+                                <Label Content="CHECKBOXES"/>
+                                <CheckBox Content="Enable notifications" IsChecked="True" Margin="0,4,0,0"/>
+                                <CheckBox Content="Remember preferences" IsChecked="True" Margin="0,8,0,0"/>
+                                <CheckBox Content="Share anonymous usage data" IsChecked="False" Margin="0,8,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ Nav + Tabs ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="260"/>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Vertical Nav" Style="{StaticResource Gallery.SectionTitle}"/>
+                            <TextBlock Text="OS2.Nav.ListBox — hover and selected states." Style="{StaticResource Gallery.SectionCaption}"/>
+                            <Border Background="{DynamicResource OS2.Brush.Surface}" CornerRadius="8" Padding="8">
+                                <ListBox Style="{StaticResource OS2.Nav.ListBox}"
+                                         ItemContainerStyle="{StaticResource OS2.Nav.ListBoxItem}"
+                                         SelectedIndex="1">
+                                    <ListBoxItem Content="Dashboard"/>
+                                    <ListBoxItem Content="Documents"/>
+                                    <ListBoxItem Content="Reports"/>
+                                    <ListBoxItem Content="A navigation item with a longer label"/>
+                                </ListBox>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Tabs" Style="{StaticResource Gallery.SectionTitle}"/>
+                            <TextBlock Text="TabControl / TabItem — flat underline tabs." Style="{StaticResource Gallery.SectionCaption}"/>
+                            <TabControl Height="180">
+                                <TabItem Header="Overview">
+                                    <TextBlock Text="Overview tab content." Margin="16"/>
+                                </TabItem>
+                                <TabItem Header="Details">
+                                    <TextBlock Text="Details tab content." Margin="16"/>
+                                </TabItem>
+                                <TabItem Header="Settings">
+                                    <TextBlock Text="Settings tab content." Margin="16"/>
+                                </TabItem>
+                            </TabControl>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ============ Data grid ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <StackPanel>
+                        <TextBlock Text="Data Grid" Style="{StaticResource Gallery.SectionTitle}"/>
+                        <TextBlock Text="Sample rows. Hover a row for the hover state; the second row is pre-selected to show the active state." Style="{StaticResource Gallery.SectionCaption}"/>
+                        <DataGrid x:Name="SampleGrid"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  SelectionUnit="FullRow"
+                                  HeadersVisibility="Column"
+                                  Height="240">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Active}" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource OS2.Brush.RowHighlight}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Name" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0,4">
+                                                <TextBlock Text="{Binding Name}" FontSize="14" FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding Id}" FontFamily="Consolas" FontSize="11">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="{DynamicResource OS2.Brush.TextSecondary}"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Value="True"
+                                                                             Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}">
+                                                                    <Setter Property="Foreground" Value="{DynamicResource OS2.Brush.TextOnPrimarySubtle}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="200"/>
+                                <DataGridCheckBoxColumn Header="Active" Binding="{Binding Active}" Width="90"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ Color palette ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <StackPanel>
+                        <TextBlock Text="Color Palette" Style="{StaticResource Gallery.SectionTitle}"/>
+                        <TextBlock Text="Brand, neutral, and status colors. Left-click or right-click any swatch to copy the hex." Style="{StaticResource Gallery.SectionCaption}"/>
+                        <WrapPanel x:Name="SwatchPanel"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ Messages ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <StackPanel>
+                        <TextBlock Text="Messages" Style="{StaticResource Gallery.SectionTitle}"/>
+                        <TextBlock Text="Banner notifications and modal dialog card." Style="{StaticResource Gallery.SectionCaption}"/>
+
+                        <!-- Banners -->
+                        <Border Style="{StaticResource OS2.Banner.Default}" Margin="0,0,0,8">
+                            <StackPanel>
+                                <TextBlock Text="Default" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                                <TextBlock Text="A neutral status message or informational note with no severity."/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource OS2.Banner.Info}" Margin="0,0,0,8">
+                            <StackPanel>
+                                <TextBlock Text="Info" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource OS2.Brush.Primary}" Margin="0,0,0,2"/>
+                                <TextBlock Text="A helpful tip or a background action has completed successfully."/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource OS2.Banner.Warning}" Margin="0,0,0,8">
+                            <StackPanel>
+                                <TextBlock Text="Warning" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource OS2.Brush.Warning}" Margin="0,0,0,2"/>
+                                <TextBlock Text="Something needs your attention before you continue."/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource OS2.Banner.Danger}" Margin="0,0,0,20">
+                            <StackPanel>
+                                <TextBlock Text="Danger" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource OS2.Brush.Danger}" Margin="0,0,0,2"/>
+                                <TextBlock Text="An error occurred or a destructive action is pending."/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Dialog card preview -->
+                        <TextBlock Text="Dialog card" Style="{StaticResource Gallery.SectionTitle}" Margin="0,0,0,12"/>
+                        <Border Style="{StaticResource OS2.Dialog}" MaxWidth="420" HorizontalAlignment="Left">
+                            <StackPanel>
+                                <TextBlock Text="Delete item?" Style="{StaticResource OS2.Text.Heading}" Margin="0,0,0,8"/>
+                                <TextBlock Text="This will permanently remove the item and all associated records. This action cannot be undone."
+                                           Margin="0,0,0,20"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Style="{StaticResource OS2.Button.Flat}" Content="Cancel" Margin="0,0,8,0"/>
+                                    <Button Style="{StaticResource OS2.Button.DangerSolid}" Content="Yes, delete"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

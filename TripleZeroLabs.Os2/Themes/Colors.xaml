@@ -1,0 +1,91 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================================================
+         OS2 theme palette
+         Plain WPF Colors/Brushes only - no third-party dependencies.
+         ============================================================ -->
+
+    <!-- Brand -->
+    <Color x:Key="OS2.Color.Primary">#2F6FEB</Color>
+    <Color x:Key="OS2.Color.PrimaryHover">#2257C6</Color>
+    <Color x:Key="OS2.Color.PrimaryPressed">#1B46A0</Color>
+    <Color x:Key="OS2.Color.Accent">#7C4DFF</Color>
+
+    <!-- Neutrals -->
+    <Color x:Key="OS2.Color.Background">#FFFFFF</Color>
+    <Color x:Key="OS2.Color.Surface">#F4F6F9</Color>
+    <Color x:Key="OS2.Color.SurfaceAlt">#ECEFF3</Color>
+    <Color x:Key="OS2.Color.Border">#D6DBE1</Color>
+    <Color x:Key="OS2.Color.BorderFocus">#2F6FEB</Color>
+
+    <!-- Dark toolbar / chrome -->
+    <Color x:Key="OS2.Color.Toolbar">#2B3442</Color>
+    <Color x:Key="OS2.Color.ToolbarForeground">#FFFFFF</Color>
+    <!-- Modal overlay scrim -->
+    <Color x:Key="OS2.Color.Overlay">#B2000000</Color>
+
+    <!-- Text -->
+    <Color x:Key="OS2.Color.TextPrimary">#1B2733</Color>
+    <Color x:Key="OS2.Color.TextSecondary">#5B6875</Color>
+    <Color x:Key="OS2.Color.TextOnPrimary">#FFFFFF</Color>
+    <Color x:Key="OS2.Color.TextDisabled">#A2ABB5</Color>
+
+    <!-- Status -->
+    <Color x:Key="OS2.Color.Success">#2E9E5B</Color>
+    <Color x:Key="OS2.Color.Warning">#E0A100</Color>
+    <Color x:Key="OS2.Color.Danger">#D64545</Color>
+    <Color x:Key="OS2.Color.DangerHover">#B83A3A</Color>
+    <!-- Faint red wash for the hover state of outlined danger controls -->
+    <Color x:Key="OS2.Color.DangerSurface">#FBEAEA</Color>
+
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="OS2.Brush.Primary" Color="{StaticResource OS2.Color.Primary}" />
+    <SolidColorBrush x:Key="OS2.Brush.PrimaryHover" Color="{StaticResource OS2.Color.PrimaryHover}" />
+    <SolidColorBrush x:Key="OS2.Brush.PrimaryPressed" Color="{StaticResource OS2.Color.PrimaryPressed}" />
+    <SolidColorBrush x:Key="OS2.Brush.Accent" Color="{StaticResource OS2.Color.Accent}" />
+
+    <SolidColorBrush x:Key="OS2.Brush.Background" Color="{StaticResource OS2.Color.Background}" />
+    <SolidColorBrush x:Key="OS2.Brush.Surface" Color="{StaticResource OS2.Color.Surface}" />
+    <SolidColorBrush x:Key="OS2.Brush.SurfaceAlt" Color="{StaticResource OS2.Color.SurfaceAlt}" />
+    <SolidColorBrush x:Key="OS2.Brush.Border" Color="{StaticResource OS2.Color.Border}" />
+    <SolidColorBrush x:Key="OS2.Brush.BorderFocus" Color="{StaticResource OS2.Color.BorderFocus}" />
+    <SolidColorBrush x:Key="OS2.Brush.Toolbar" Color="{StaticResource OS2.Color.Toolbar}" />
+    <SolidColorBrush x:Key="OS2.Brush.ToolbarForeground" Color="{StaticResource OS2.Color.ToolbarForeground}" />
+    <SolidColorBrush x:Key="OS2.Brush.Card" Color="{StaticResource OS2.Color.Background}" />
+    <!-- Subdued text that still reads on a Primary-coloured (selected) background. -->
+    <SolidColorBrush x:Key="OS2.Brush.TextOnPrimarySubtle" Color="#C7DDFF" />
+    <SolidColorBrush x:Key="OS2.Brush.Overlay" Color="{StaticResource OS2.Color.Overlay}" />
+
+    <SolidColorBrush x:Key="OS2.Brush.TextPrimary" Color="{StaticResource OS2.Color.TextPrimary}" />
+    <SolidColorBrush x:Key="OS2.Brush.TextSecondary" Color="{StaticResource OS2.Color.TextSecondary}" />
+    <SolidColorBrush x:Key="OS2.Brush.TextOnPrimary" Color="{StaticResource OS2.Color.TextOnPrimary}" />
+    <SolidColorBrush x:Key="OS2.Brush.TextDisabled" Color="{StaticResource OS2.Color.TextDisabled}" />
+
+    <SolidColorBrush x:Key="OS2.Brush.Success" Color="{StaticResource OS2.Color.Success}" />
+    <SolidColorBrush x:Key="OS2.Brush.Warning" Color="{StaticResource OS2.Color.Warning}" />
+    <SolidColorBrush x:Key="OS2.Brush.Danger" Color="{StaticResource OS2.Color.Danger}" />
+    <SolidColorBrush x:Key="OS2.Brush.DangerHover" Color="{StaticResource OS2.Color.DangerHover}" />
+    <SolidColorBrush x:Key="OS2.Brush.DangerSurface" Color="{StaticResource OS2.Color.DangerSurface}" />
+
+    <!-- Row highlight: light blue tint for DataGrid rows with a checked/active boolean property -->
+    <SolidColorBrush x:Key="OS2.Brush.RowHighlight" Color="#EBF2FF" />
+
+    <!-- Success hover/pressed states and faint wash for outlined success controls -->
+    <Color x:Key="OS2.Color.SuccessHover">#27875C</Color>
+    <Color x:Key="OS2.Color.SuccessPressed">#1E6B49</Color>
+    <Color x:Key="OS2.Color.SuccessSurface">#E8F5EE</Color>
+    <SolidColorBrush x:Key="OS2.Brush.SuccessHover"   Color="{StaticResource OS2.Color.SuccessHover}" />
+    <SolidColorBrush x:Key="OS2.Brush.SuccessPressed" Color="{StaticResource OS2.Color.SuccessPressed}" />
+    <SolidColorBrush x:Key="OS2.Brush.SuccessSurface" Color="{StaticResource OS2.Color.SuccessSurface}" />
+
+    <!-- Banner / toast notification tinted backgrounds -->
+    <SolidColorBrush x:Key="OS2.Brush.BannerInfoBackground"    Color="#EBF2FF" />
+    <SolidColorBrush x:Key="OS2.Brush.BannerWarningBackground" Color="#FFF8E8" />
+    <SolidColorBrush x:Key="OS2.Brush.BannerDangerBackground"  Color="#FFF0F0" />
+
+    <!-- Metrics (CornerRadius/Thickness have built-in type converters; no sys namespace needed) -->
+    <CornerRadius x:Key="OS2.CornerRadius">4</CornerRadius>
+    <Thickness x:Key="OS2.Thickness.ControlPadding">10,6</Thickness>
+
+</ResourceDictionary>

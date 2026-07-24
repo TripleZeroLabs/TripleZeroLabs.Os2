@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    TripleZeroLabs.Os2 - a dependency-free WPF theme (plain Colors/Controls resource
+    dictionaries, no MaterialDesign/MahApps). Multi-targets the same runtimes the
+    Triple Zero Labs Revit add-ins use, so a ProjectReference from any add-in config
+    resolves to the matching runtime:
+      net48           -> Revit 2022-2024
+      net8.0-windows  -> Revit 2025-2026
+      net10.0-windows -> Revit 2027
+    Resource-only: the Themes\*.xaml dictionaries compile to BAML in this assembly.
+  -->
+  <PropertyGroup>
+    <TargetFrameworks>net48;net8.0-windows;net10.0-windows</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <RootNamespace>TripleZeroLabs.Os2</RootNamespace>
+    <AssemblyName>TripleZeroLabs.Os2</AssemblyName>
+    <UseWPF>true</UseWPF>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Company>Triple Zero Labs, LLC</Company>
+    <Product>OS2</Product>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+</Project>

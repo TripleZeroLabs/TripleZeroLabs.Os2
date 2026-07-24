@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Standalone gallery/preview app for TripleZeroLabs.Os2. Run it like any app
+    (`dotnet run` from this folder, or F5 in the IDE) to interact with the theme's
+    controls and states without Revit. Not shipped - it's the theme's dev tool.
+    Single modern TFM; net8.0-windows is LTS and present on the dev machine.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>TripleZeroLabs.Os2.Gallery</RootNamespace>
+    <AssemblyName>TripleZeroLabs.Os2.Gallery</AssemblyName>
+    <UseWPF>true</UseWPF>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TripleZeroLabs.Os2\TripleZeroLabs.Os2.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Link the solution-level brand icon into the assembly as a WPF Resource so
+         Window.Icon can reference it via a pack URI without duplicating the file. -->
+    <Resource Include="..\assets\icon.png" Link="assets\icon.png" />
+  </ItemGroup>
+
+</Project>

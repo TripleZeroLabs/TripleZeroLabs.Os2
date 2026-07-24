@@ -1,0 +1,10 @@
+<Project>
+
+  <!-- Downloads the Azure Trusted Signing DLIB so installer\sign-debug.ps1 can sign
+       built outputs. Restored to the NuGet cache on `dotnet restore`; not referenced
+       at build or runtime. -->
+  <ItemGroup>
+    <PackageDownload Include="Microsoft.Trusted.Signing.Client" Version="[1.0.60]" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+<Application x:Class="YourApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- OS2 theme — single entry point, themes all controls automatically -->
+                <ResourceDictionary Source="pack://application:,,,/TripleZeroLabs.Os2;component/Themes/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Add your own application-level resources below this line -->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
