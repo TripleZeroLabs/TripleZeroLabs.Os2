@@ -494,3 +494,12 @@ dotnet run
 
 Opens a live window with every styled control — typography, buttons, form fields, nav,
 tabs, data grid, and the full colour palette — including hover, active, and disabled states.
+
+---
+
+## License
+
+MIT + Commons Clause — you may use this theme in commercial products and sell
+applications that incorporate it. You may not sell or commercially distribute
+the theme library itself as a standalone product.
+See [LICENSE](LICENSE) for the full text.

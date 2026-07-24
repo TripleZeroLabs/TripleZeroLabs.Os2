@@ -20,6 +20,16 @@
     <Company>Triple Zero Labs, LLC</Company>
     <Product>OS2</Product>
     <Version>0.1.0</Version>
+    <Copyright>Copyright © 2026 Triple Zero Labs, LLC</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageDescription>A dependency-free WPF theme (net48/net8/net10) for standalone desktop apps, plugin hosts, and embedded tool windows.</PackageDescription>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>wpf;xaml;dotnet;theme;ui;wpf-theme</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ---
 name: os2-wpf-theme
 description: Apply the OS2 WPF theme (TripleZeroLabs.Os2) correctly in any XAML or C# file. Activate when building or editing a WPF window, page, view, or UserControl; styling any WPF control (Button, TextBox, DataGrid, ComboBox, CheckBox, nav sidebar, tabs, dialog, banner); building a settings screen, form, dashboard, or toolbar; the user mentions OS2, Triple Zero Labs, or TripleZeroLabs.Os2; or any new Window, UserControl, or XAML file is scaffolded in a project that references TripleZeroLabs.Os2. Load this skill before writing any XAML markup or brush/style references.
-license: MIT
+license: MIT-Commons-Clause
 compatibility: WPF projects targeting net48, net8.0-windows, or net10.0-windows. Requires a ProjectReference to TripleZeroLabs.Os2.
 metadata:
   author: Triple Zero Labs
