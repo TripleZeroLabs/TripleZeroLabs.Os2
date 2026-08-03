@@ -222,6 +222,47 @@
         </Setter>
     </Style>
 
+    <!-- Button (subtle / neutral) - a quiet, dropdown-like button for low-emphasis inline
+         actions. Grey border and surface hover instead of the primary-coloured Secondary. -->
+    <Style x:Key="OS2.Button.Subtle" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{DynamicResource OS2.Brush.TextPrimary}" />
+        <Setter Property="Background" Value="{DynamicResource OS2.Brush.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource OS2.Brush.Border}" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="14,0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            Padding="{TemplateBinding Padding}"
+                            CornerRadius="4"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource OS2.Brush.Surface}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource OS2.Brush.TextSecondary}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource OS2.Brush.Border}" />
+                            <Setter Property="Foreground" Value="{DynamicResource OS2.Brush.TextDisabled}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- TextBox -->
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="Foreground" Value="{DynamicResource OS2.Brush.TextPrimary}" />
