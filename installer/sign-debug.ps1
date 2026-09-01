@@ -5,8 +5,8 @@
 .DESCRIPTION
     Invoked automatically from Directory.Build.targets after each build. Signs every
     TripleZeroLabs.Os2*.dll and TripleZeroLabs.Os2*.exe in the given folder with Azure
-    Trusted Signing - the same signtool + dlib + signing-metadata.json used for the
-    OpenDefinery Revit add-ins.
+    Trusted Signing so Smart App Control trusts them by certificate rather than
+    cloud reputation.
 
     Smart App Control blocks unsigned assemblies by cloud reputation, so a freshly-built
     DLL or EXE with no reputation gets blocked at random. Signing makes SAC trust them

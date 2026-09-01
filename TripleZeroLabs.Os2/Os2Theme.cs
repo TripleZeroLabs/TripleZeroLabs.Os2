@@ -10,7 +10,7 @@ namespace TripleZeroLabs.Os2
     /// Standalone WPF app — call once in App.xaml.cs:
     ///     Os2Theme.Apply(this);
     ///
-    /// Revit / add-in — apply per-window so the host app's resources are untouched:
+    /// Plugin / add-in — apply per-window so the host app's resources are untouched:
     ///     Os2Theme.Apply(myWindow);
     /// </summary>
     public static class Os2Theme

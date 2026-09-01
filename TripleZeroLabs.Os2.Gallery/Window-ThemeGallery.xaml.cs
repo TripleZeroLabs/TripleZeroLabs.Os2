@@ -167,5 +167,30 @@ namespace TripleZeroLabs.Os2.Gallery
         {
             return TryFindResource(key) as Brush;
         }
+
+        // ── Os2MessageBox demo handlers ───────────────────────────────────────────
+
+        private void MsgInfo_Click(object sender, RoutedEventArgs e)
+            => Os2MessageBox.Show(this, "Your export finished successfully. The file is ready to download.", "Export Complete",
+                   MessageBoxButton.OK, MessageBoxImage.Information);
+
+        private void MsgWarning_Click(object sender, RoutedEventArgs e)
+            => Os2MessageBox.Show(this, "This file has unsaved changes. Do you want to continue without saving?", "Unsaved Changes",
+                   MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+
+        private void MsgError_Click(object sender, RoutedEventArgs e)
+            => Os2MessageBox.Show(this, "The connection to the server was lost. Check your network and try again.", "Connection Error",
+                   MessageBoxButton.OK, MessageBoxImage.Error);
+
+        private void MsgQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            var result = Os2MessageBox.Show(this, "Archive this record? It will be hidden from active views but can be restored later.", "Archive Record",
+                             MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+                Os2MessageBox.Show(this, "Record archived.", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void MsgPlain_Click(object sender, RoutedEventArgs e)
+            => Os2MessageBox.Show(this, "This is a plain message with no title and no icon.");
     }
 }

@@ -315,6 +315,18 @@
                                 </StackPanel>
                             </StackPanel>
                         </Border>
+
+                        <!-- Os2MessageBox live demo -->
+                        <TextBlock Text="Os2MessageBox" Style="{StaticResource Gallery.SectionTitle}" Margin="0,24,0,4"/>
+                        <TextBlock Text="Styled drop-in for MessageBox.Show — same overloads and return types."
+                                   Style="{StaticResource Gallery.SectionCaption}" Margin="0,0,0,12"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Information" Click="MsgInfo_Click"    Margin="0,0,8,0" Style="{StaticResource OS2.Button.Secondary}"/>
+                            <Button Content="Warning"     Click="MsgWarning_Click" Margin="0,0,8,0" Style="{StaticResource OS2.Button.Secondary}"/>
+                            <Button Content="Error"       Click="MsgError_Click"   Margin="0,0,8,0" Style="{StaticResource OS2.Button.Secondary}"/>
+                            <Button Content="Question"    Click="MsgQuestion_Click" Margin="0,0,8,0" Style="{StaticResource OS2.Button.Secondary}"/>
+                            <Button Content="Plain OK"    Click="MsgPlain_Click"                    Style="{StaticResource OS2.Button.Secondary}"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
 

@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <!--
-    Standalone gallery/preview app for TripleZeroLabs.Os2. Run it like any app
-    (`dotnet run` from this folder, or F5 in the IDE) to interact with the theme's
-    controls and states without Revit. Not shipped - it's the theme's dev tool.
+    Standalone gallery/preview app for TripleZeroLabs.Os2. Run it (`dotnet run`
+    from this folder, or F5 in the IDE) to interact with every themed control and
+    state. Not shipped as a NuGet package - it's the theme's visual dev tool.
     Single modern TFM; net8.0-windows is LTS and present on the dev machine.
   -->
   <PropertyGroup>
@@ -13,6 +13,7 @@
     <AssemblyName>TripleZeroLabs.Os2.Gallery</AssemblyName>
     <UseWPF>true</UseWPF>
     <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
