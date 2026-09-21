@@ -1,59 +1,28 @@
 # TripleZeroLabs.Os2
 
-> **Building with AI?** This repo ships an [Agent Skill](os2-wpf-theme/SKILL.md) that teaches your
-> AI coding assistant — Claude Code, Cursor, GitHub Copilot, ChatGPT, Gemini, or any agent that
-> supports the [Agent Skills](https://agentskills.io) spec — exactly how to apply this theme
-> correctly. Your agent learns every resource key, which controls are auto-styled, and all the
-> common gotchas, without you having to explain any of it. See
-> [§ Onboarding Your AI Assistant](#onboarding-your-ai-assistant) below.
-
 A dependency-free WPF theme. No MaterialDesign, no MahApps — plain `ResourceDictionary` files
-that compile to BAML. Targets `net48`, `net8.0-windows`, and `net10.0-windows` so it works across
-standalone desktop apps, plugin hosts, and embedded tool windows alike.
-
-| Project | Purpose |
-|---|---|
-| `TripleZeroLabs.Os2` | The theme library. This is what you reference. |
-| `TripleZeroLabs.Os2.Gallery` | Runnable WPF app showing every control and its states. |
+that compile to BAML. Drop it in, merge one URI, and every standard WPF control is styled.
+Targets `net48`, `net8.0-windows`, and `net10.0-windows`.
 
 ---
 
-## Getting Started
+## Installation
 
-### 1. Clone and build the theme
-
-Clone the repository and build it alongside your project. The output is a single `.dll` you
-reference directly — no NuGet package required.
-
-```bash
-git clone https://github.com/TripleZeroLabs/TripleZeroLabs.Os2.git
-cd TripleZeroLabs.Os2
-dotnet build
+```
+dotnet add package TripleZeroLabs.Os2
 ```
 
-To verify everything is working, run the gallery app — it opens a live window showing every
-styled control:
-
-```bash
-cd TripleZeroLabs.Os2.Gallery
-dotnet run
-```
-
-### 2. Add a reference to your project
-
-Add a `ProjectReference` from your WPF project to the theme library:
+Or add the package reference manually:
 
 ```xml
-<ProjectReference Include="..\TripleZeroLabs.Os2\TripleZeroLabs.Os2.csproj" />
+<PackageReference Include="TripleZeroLabs.Os2" Version="0.1.0" />
 ```
 
-If you placed the repo in a different location, adjust the path to match. The theme library
-targets `net48`, `net8.0-windows`, and `net10.0-windows` — it resolves to the correct runtime
-automatically based on your project's `TargetFramework`.
+---
 
-### 3. Apply the theme
+## Quick Start
 
-**XAML — merge in `App.xaml`** (recommended for standalone apps)
+Merge the single theme entry point in `App.xaml`:
 
 ```xml
 <Application.Resources>
@@ -65,7 +34,7 @@ automatically based on your project's `TargetFramework`.
 </Application.Resources>
 ```
 
-**C# — call `Os2Theme.Apply` in `App.xaml.cs`**
+Or apply in code in `App.xaml.cs`:
 
 ```csharp
 using TripleZeroLabs.Os2;
@@ -77,207 +46,104 @@ protected override void OnStartup(StartupEventArgs e)
 }
 ```
 
-**Plugin / add-in — apply per window to avoid affecting the host app**
-
-When embedding in a host application (VS extensions, CAD add-ins, Office plugins, or any other
-process you don't own), apply the theme to individual windows rather than `Application.Current`
-so the host app's resource dictionary stays untouched.
+**Plugin / add-in hosts** — apply per-window to leave the host app's resources untouched:
 
 ```csharp
-Os2Theme.Apply(myWindow);
+Os2Theme.Apply(myWindow);   // safe for VS extensions, CAD add-ins, Office plugins, etc.
 ```
 
-Once applied, all standard WPF controls pick up OS2 implicit styles automatically — no extra
-attributes needed on individual controls.
-
-### 4. Point your AI assistant at the skill
-
-If you're using an AI coding assistant, copy the included skill into your project so your agent
-understands the theme without needing to be explained it on every prompt. See
-[§ Onboarding Your AI Assistant](#onboarding-your-ai-assistant) for provider-specific setup.
+Once applied, all standard WPF controls pick up OS2 styles automatically — no extra attributes needed.
 
 ---
 
-## Onboarding Your AI Assistant
+## What's Included
 
-This repo includes an [Agent Skill](os2-wpf-theme/SKILL.md) — a structured context file that
-teaches any compatible AI coding assistant how to apply the OS2 theme correctly. Once set up,
-your agent knows every resource key, which controls are auto-styled vs. opt-in, the right
-patterns for DataGrids, banners, dialogs, and nav sidebars, and the gotchas that silently break
-the theme. You can then prompt it naturally — "add a settings panel with a sidebar and a danger
-button" — and get correct, theme-consistent XAML on the first try.
+### Implicit styles — automatic, no `Style=` needed
 
-Copy the skill folder into your project first:
-
-```bash
-# From your project root
-cp -r path/to/TripleZeroLabs.Os2/os2-wpf-theme ./os2-wpf-theme
-```
-
-Then follow the setup for your AI tool below.
-
----
-
-### Claude Code / Claude (Anthropic)
-
-Claude Code has native skill support. Drop the folder into `.claude/skills/`:
-
-```bash
-mkdir -p .claude/skills
-cp -r os2-wpf-theme .claude/skills/os2-wpf-theme
-```
-
-Claude Code automatically indexes `SKILL.md` metadata on startup and loads the full skill body
-when you start working on XAML or ask about the theme. No further configuration needed.
-
-For the **Claude.ai web interface**, paste the contents of
-[`os2-wpf-theme/SKILL.md`](os2-wpf-theme/SKILL.md) into a Project Knowledge document so it's
-available in every conversation in that project.
-
----
-
-### Cursor
-
-Cursor picks up context from files in the `.cursor/rules/` directory. Convert the skill to a
-Cursor rule:
-
-```bash
-mkdir -p .cursor/rules
-cp os2-wpf-theme/SKILL.md .cursor/rules/os2-wpf-theme.mdc
-```
-
-You can also include the full key catalog as a second rule file:
-
-```bash
-cp os2-wpf-theme/references/resource-keys.md .cursor/rules/os2-resource-keys.mdc
-```
-
-Once in place, Cursor will reference these rules when you work on `.xaml` or `.cs` files. For
-more targeted activation, open the rule file and add a front-matter `globs` pattern:
-
-```
----
-globs: ["**/*.xaml", "**/*.cs"]
----
-```
-
----
-
-### GitHub Copilot (VS Code / Visual Studio)
-
-Copilot reads context files placed in `.github/copilot-instructions.md` (workspace-level) or
-any file referenced via the `#file:` syntax in chat. The quickest setup:
-
-```bash
-# Workspace-level instructions (applies to all Copilot interactions in this repo)
-cat os2-wpf-theme/SKILL.md >> .github/copilot-instructions.md
-```
-
-In Copilot Chat, you can also attach the file on demand:
-
-```
-@workspace #file:os2-wpf-theme/SKILL.md  Add a settings window with sidebar nav and a danger button
-```
-
----
-
-### ChatGPT (OpenAI)
-
-ChatGPT doesn't have a project-level skill directory, but you have two good options:
-
-**Custom GPT** — if you have ChatGPT Plus or a Teams account, create a Custom GPT and paste the
-contents of [`os2-wpf-theme/SKILL.md`](os2-wpf-theme/SKILL.md) into the GPT's system
-instructions. This makes the theme knowledge permanent across all conversations with that GPT.
-
-**Per-conversation** — upload [`os2-wpf-theme/SKILL.md`](os2-wpf-theme/SKILL.md) as a file
-attachment at the start of any conversation, then ask your question. ChatGPT will read it before
-responding.
-
----
-
-### Gemini (Google)
-
-**Gemini for Google Workspace / Gemini Advanced** — paste the contents of
-[`os2-wpf-theme/SKILL.md`](os2-wpf-theme/SKILL.md) into a Google Doc, then share that doc with
-your Gemini workspace context or reference it in a Gem (custom AI agent) system prompt.
-
-**Gemini in VS Code (via the Gemini Code Assist extension)** — add the skill content to your
-workspace's `.gemini/context.md` file:
-
-```bash
-mkdir -p .gemini
-cat os2-wpf-theme/SKILL.md >> .gemini/context.md
-```
-
----
-
-### JetBrains AI Assistant
-
-In any JetBrains IDE with the AI Assistant plugin, open **Settings → AI Assistant → Prompt
-Library** and add a new entry. Paste the contents of
-[`os2-wpf-theme/SKILL.md`](os2-wpf-theme/SKILL.md) as the prompt body. Name it "OS2 Theme" and
-set its scope to the project. The assistant will include it as context whenever it generates code
-in that project.
-
----
-
-### General approach (any other agent)
-
-If your tool isn't listed above, look for one of these extension points:
-
-| Mechanism | Where to look |
+| Control | What changes |
 |---|---|
-| System prompt / instructions | Paste `SKILL.md` content here |
-| Knowledge base / context files | Upload `SKILL.md` + `references/resource-keys.md` |
-| `.context` or rules directory | Drop the `os2-wpf-theme/` folder there |
-| `@file` / `#file` attachment | Reference `os2-wpf-theme/SKILL.md` inline in chat |
+| `Window` | Root `Foreground` set so TextBlocks inherit it |
+| `TextBlock` | Segoe UI 13 px, `TextWrapping=Wrap` |
+| `Label` | Segoe UI 13 px, TextPrimary foreground |
+| `Button` | Solid primary blue, rounded, hover/pressed/disabled states |
+| `TextBox` | Rounded border, focus ring, disabled tint |
+| `PasswordBox` | Matches TextBox visually |
+| `ComboBox` | Raised border, white popup with drop shadow |
+| `ComboBoxItem` | Rounded, SurfaceAlt on hover |
+| `CheckBox` | Rounded tick box, full-row hover background |
+| `ListBox` | Light border, TextPrimary foreground |
+| `DataGrid` | No outer border, horizontal dividers, generous cell padding |
+| `DataGridColumnHeader` | SemiBold labels, sort arrows |
+| `DataGridRow` | SurfaceAlt on hover |
+| `DataGridCell` | 16,12 padding; blue + white when selected |
+| `TabControl` | Surface tab strip with hairline baseline |
+| `TabItem` | Primary underline on selected tab |
+| `ContextMenu` | White, CornerRadius 6, soft drop shadow |
+| `MenuItem` | Rounded, SurfaceAlt highlight, generous padding |
 
-The skill follows the open [Agent Skills spec](https://agentskills.io/specification) — any
-agent built to that standard will pick it up automatically from `.claude/skills/` or the
-equivalent directory your tool uses.
+### Keyed styles — apply with `Style="{StaticResource KEY}"`
+
+| Key | Control | Purpose |
+|---|---|---|
+| `OS2.Text.Heading` | TextBlock | 20 px SemiBold heading |
+| `OS2.Text.Caption` | TextBlock | 11 px subdued caption |
+| `OS2.Button.Secondary` | Button | Outlined primary-blue |
+| `OS2.Button.Danger` | Button | Outlined red — open a confirm dialog |
+| `OS2.Button.DangerSolid` | Button | Solid red — confirm the destructive action |
+| `OS2.Button.Flat` | Button | Text-only (Cancel, Skip) |
+| `OS2.Button.Success` | Button | Solid green — positive confirming action |
+| `OS2.Button.SuccessSecondary` | Button | Outlined green |
+| `OS2.Banner.Default` | Border | Neutral grey accent-bar notification |
+| `OS2.Banner.Info` | Border | Blue-tinted notification |
+| `OS2.Banner.Warning` | Border | Amber-tinted notification |
+| `OS2.Banner.Danger` | Border | Red-tinted notification |
+| `OS2.Dialog` | Border | Floating card with rounded corners and shadow |
+| `OS2.Nav.ListBox` | ListBox | Sidebar nav container |
+| `OS2.Nav.ListBoxItem` | ListBoxItem | Nav item with left active-bar indicator |
 
 ---
 
 ## Buttons
 
-The default `Button` style is the solid **primary** button. Named styles cover every other variant.
-
-| Style key | Appearance | Use for |
-|---|---|---|
-| *(default)* | Solid blue | Primary / confirming action |
-| `OS2.Button.Secondary` | Outlined blue | Secondary action |
-| `OS2.Button.Danger` | Outlined red | Initiating a destructive action |
-| `OS2.Button.DangerSolid` | Solid red | Confirming a destructive action |
-| `OS2.Button.Flat` | Text only | Low-emphasis action (e.g. Cancel) |
-| `OS2.Button.Success` | Solid green | Confirming a safe / positive action |
-| `OS2.Button.SuccessSecondary` | Outlined green | Secondary positive action |
-
 ```xml
-<!-- Primary — no style attribute needed -->
+<!-- Primary (solid blue) — implicit, no style attribute -->
 <Button Content="Save" />
 
-<!-- Secondary -->
-<Button Style="{StaticResource OS2.Button.Secondary}" Content="Export" />
-
-<!-- Danger (outlined) — opens a confirmation dialog -->
-<Button Style="{StaticResource OS2.Button.Danger}" Content="Delete Collection" />
-
-<!-- Danger (solid) — the confirm button inside that dialog -->
-<Button Style="{StaticResource OS2.Button.DangerSolid}" Content="Yes, delete permanently" />
-
-<!-- Flat -->
-<Button Style="{StaticResource OS2.Button.Flat}" Content="Cancel" />
+<!-- All other variants are opt-in -->
+<Button Style="{StaticResource OS2.Button.Secondary}"      Content="Export" />
+<Button Style="{StaticResource OS2.Button.Danger}"         Content="Delete" />
+<Button Style="{StaticResource OS2.Button.DangerSolid}"    Content="Yes, delete permanently" />
+<Button Style="{StaticResource OS2.Button.Flat}"           Content="Cancel" />
+<Button Style="{StaticResource OS2.Button.Success}"        Content="Publish" />
+<Button Style="{StaticResource OS2.Button.SuccessSecondary}" Content="Download" />
 ```
 
-All button styles handle hover, pressed, and disabled states automatically.
+---
+
+## Os2MessageBox
+
+A drop-in replacement for WPF's `MessageBox` with OS2 styling. Same overloads, same return type — find-replace `MessageBox` → `Os2MessageBox` and nothing else changes.
+
+```csharp
+using TripleZeroLabs.Os2;
+
+// Simple
+Os2MessageBox.Show("Settings saved.");
+
+// With buttons and icon
+var result = Os2MessageBox.Show(
+    "Delete this item?", "Confirm",
+    MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+
+if (result == MessageBoxResult.OK) { /* proceed */ }
+```
+
+`MessageBoxImage.Error` automatically promotes the confirm button to `OS2.Button.DangerSolid`.
+`Enter` and `Escape` are wired to the appropriate buttons based on the button set.
 
 ---
 
 ## DataGrid
-
-The implicit `DataGrid` style removes outer borders and vertical grid lines, shows subtle
-horizontal row dividers, and adds generous cell padding. Row hover and selection are handled
-automatically — no extra style attributes needed.
 
 ```xml
 <DataGrid ItemsSource="{Binding Items}"
@@ -293,103 +159,69 @@ automatically — no extra style attributes needed.
 </DataGrid>
 ```
 
-**Selected row colours**
-
-Selected rows use `OS2.Brush.Primary` (blue) as the background with `OS2.Brush.TextOnPrimary`
-(white) for text. If a cell template contains secondary text, switch its foreground on selection
-so it stays readable:
+**Highlight rows where a boolean is true** — `BasedOn` is required to preserve the hover state:
 
 ```xml
-<DataGridTemplateColumn Header="Name" Width="*">
-    <DataGridTemplateColumn.CellTemplate>
-        <DataTemplate>
-            <StackPanel Margin="0,4">
-                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
-                <TextBlock Text="{Binding Subtitle}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Foreground"
-                                    Value="{DynamicResource OS2.Brush.TextSecondary}" />
-                            <Style.Triggers>
-                                <DataTrigger Value="True"
-                                             Binding="{Binding IsSelected,
-                                                 RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}">
-                                    <Setter Property="Foreground"
-                                            Value="{DynamicResource OS2.Brush.TextOnPrimarySubtle}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </StackPanel>
-        </DataTemplate>
-    </DataGridTemplateColumn.CellTemplate>
-</DataGridTemplateColumn>
+<DataGrid.RowStyle>
+    <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Active}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource OS2.Brush.RowHighlight}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</DataGrid.RowStyle>
 ```
 
----
-
-**Highlight rows where a boolean property is true**
-
-Apply a `RowStyle` to the DataGrid that uses a `DataTrigger` bound to the relevant property.
-`BasedOn` preserves the implicit row style's hover behaviour.
+**Secondary text in template columns** — switch foreground on selection so it stays readable against the blue selected-row background:
 
 ```xml
-<DataGrid ...>
-    <DataGrid.RowStyle>
-        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
+<TextBlock Text="{Binding Subtitle}">
+    <TextBlock.Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource OS2.Brush.TextSecondary}" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Active}" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource OS2.Brush.RowHighlight}" />
+                <DataTrigger Value="True"
+                             Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}">
+                    <Setter Property="Foreground" Value="{DynamicResource OS2.Brush.TextOnPrimarySubtle}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-    </DataGrid.RowStyle>
-    ...
-</DataGrid>
+    </TextBlock.Style>
+</TextBlock>
 ```
-
-`OS2.Brush.RowHighlight` is a light blue tint (`#EBF2FF`). When the row is selected, the
-cell-level Primary blue background takes over automatically — no extra triggers needed.
 
 ---
 
 ## Banners
 
-Apply a banner style to any `Border` to get a toast-style notification with a coloured left accent bar.
-
-| Style key | Appearance | Use for |
-|---|---|---|
-| `OS2.Banner.Default` | Grey accent / grey bg | Neutral status or informational note |
-| `OS2.Banner.Info` | Blue accent / blue-tint bg | Helpful tip or completed action |
-| `OS2.Banner.Warning` | Amber accent / yellow-tint bg | Needs attention before continuing |
-| `OS2.Banner.Danger` | Red accent / pink-tint bg | Error or destructive action pending |
-
 ```xml
 <Border Style="{StaticResource OS2.Banner.Info}">
     <StackPanel>
         <TextBlock Text="Changes saved." FontWeight="SemiBold"
-                   Foreground="{DynamicResource OS2.Brush.Primary}"/>
-        <TextBlock Text="Your changes have been saved and are ready to publish."/>
+                   Foreground="{DynamicResource OS2.Brush.Primary}" />
+        <TextBlock Text="Your changes are ready to publish." />
     </StackPanel>
 </Border>
+
+<!-- OS2.Banner.Default — neutral grey accent bar  -->
+<!-- OS2.Banner.Warning — amber accent bar          -->
+<!-- OS2.Banner.Danger  — red accent bar            -->
 ```
 
 ---
 
-## Dialog cards
-
-Apply `OS2.Dialog` to a `Border` to create a floating modal card — white background, rounded corners, and a soft shadow.
+## Dialog card
 
 ```xml
-<Border Style="{StaticResource OS2.Dialog}" MaxWidth="420">
+<Border Style="{StaticResource OS2.Dialog}" MaxWidth="420" HorizontalAlignment="Center">
     <StackPanel>
-        <TextBlock Text="Delete item?" Style="{StaticResource OS2.Text.Heading}" Margin="0,0,0,8"/>
+        <TextBlock Text="Delete item?" Style="{StaticResource OS2.Text.Heading}" Margin="0,0,0,8" />
         <TextBlock Text="This will permanently remove the item. This action cannot be undone."
-                   Margin="0,0,0,20"/>
+                   Margin="0,0,0,20" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Style="{StaticResource OS2.Button.Flat}" Content="Cancel" Margin="0,0,8,0"/>
-            <Button Style="{StaticResource OS2.Button.DangerSolid}" Content="Yes, delete"/>
+            <Button Style="{StaticResource OS2.Button.Flat}"       Content="Cancel"      Margin="0,0,8,0" />
+            <Button Style="{StaticResource OS2.Button.DangerSolid}" Content="Yes, delete" />
         </StackPanel>
     </StackPanel>
 </Border>
@@ -399,107 +231,164 @@ Apply `OS2.Dialog` to a `Border` to create a floating modal card — white backg
 
 ## Context menus
 
-Use `Os2ContextMenu` in code-behind to build a styled context menu with one line. The result picks up the implicit `ContextMenu` and `MenuItem` styles automatically.
-
 ```csharp
 using TripleZeroLabs.Os2;
 
 element.ContextMenu = Os2ContextMenu.Create()
     .Item("Copy", () => Clipboard.SetText(value))
     .Separator()
-    .Item("Open in browser", () => Process.Start(url))
+    .Item("Open", () => OpenItem(id))
     .Build();
 ```
+
+The returned `ContextMenu` picks up the implicit `ContextMenu` and `MenuItem` styles automatically.
 
 ---
 
 ## Resource reference
 
-### Brushes (`OS2.Brush.*`)
+### Brushes — `{DynamicResource OS2.Brush.*}`
+
+Always use `{DynamicResource}` (not `{StaticResource}`) for OS2 brush references.
 
 | Key | Purpose |
 |---|---|
-| `Primary` | Brand blue — buttons, links, active indicators |
-| `PrimaryHover` | Hover state for primary controls |
-| `PrimaryPressed` | Pressed state for primary controls |
-| `Accent` | Purple — secondary highlights |
-| `Background` | Window / page background |
-| `Surface` | Slightly off-white — cards, tab strip |
-| `SurfaceAlt` | Row hover, alternate fills |
-| `Card` | Card / panel background |
-| `Overlay` | Semi-transparent modal scrim |
-| `Border` | Default control border |
-| `BorderFocus` | Focus ring (matches Primary) |
-| `Toolbar` | Dark toolbar / chrome background |
-| `ToolbarForeground` | White — text on dark toolbar |
-| `TextPrimary` | Main body text |
-| `TextSecondary` | Subdued / caption text |
-| `TextOnPrimary` | White — text on solid-Primary surfaces |
-| `TextOnPrimarySubtle` | Light blue — secondary text on selected rows |
-| `TextDisabled` | Disabled control text |
-| `Success` | Green status |
-| `SuccessHover` | Darker green for success hover |
-| `SuccessPressed` | Pressed state for success controls |
-| `SuccessSurface` | Faint green wash — outlined success hover fill |
-| `Warning` | Amber status |
-| `Danger` | Red — destructive / error |
-| `DangerHover` | Darker red for danger hover |
-| `DangerSurface` | Faint red wash — outlined danger hover fill |
-| `RowHighlight` | Light blue tint for highlighted DataGrid rows |
-| `BannerInfoBackground` | Light blue tint for info banners |
-| `BannerWarningBackground` | Light yellow tint for warning banners |
-| `BannerDangerBackground` | Light pink tint for danger banners |
-
-### Named styles
-
-| Key | Control | Purpose |
-|---|---|---|
-| `OS2.Text.Heading` | TextBlock | 20 px SemiBold heading |
-| `OS2.Text.Caption` | TextBlock | 11 px subdued caption |
-| `OS2.Button.Secondary` | Button | Outlined primary-colour button |
-| `OS2.Button.Danger` | Button | Outlined red button |
-| `OS2.Button.DangerSolid` | Button | Solid red button |
-| `OS2.Button.Flat` | Button | Text-only button |
-| `OS2.Button.Success` | Button | Solid green button |
-| `OS2.Button.SuccessSecondary` | Button | Outlined green button |
-| `OS2.Banner.Default` | Border | Neutral banner with grey accent bar |
-| `OS2.Banner.Info` | Border | Blue-tinted info banner |
-| `OS2.Banner.Warning` | Border | Yellow-tinted warning banner |
-| `OS2.Banner.Danger` | Border | Pink-tinted danger banner |
-| `OS2.Dialog` | Border | Floating dialog card with shadow |
-| `OS2.Nav.ListBox` | ListBox | Vertical sidebar nav container |
-| `OS2.Nav.ListBoxItem` | ListBoxItem | Nav item with left active-bar indicator |
+| `OS2.Brush.Primary` | Brand blue — buttons, links, active indicators |
+| `OS2.Brush.PrimaryHover` | Hover state |
+| `OS2.Brush.PrimaryPressed` | Pressed state |
+| `OS2.Brush.Accent` | Purple — secondary highlights |
+| `OS2.Brush.Background` | Window / page background |
+| `OS2.Brush.Surface` | Cards, tab strip, off-white fill |
+| `OS2.Brush.SurfaceAlt` | Row hover, alternate fills |
+| `OS2.Brush.Overlay` | Semi-transparent modal scrim |
+| `OS2.Brush.Border` | Default control border |
+| `OS2.Brush.BorderFocus` | Focus ring |
+| `OS2.Brush.Toolbar` | Dark toolbar background |
+| `OS2.Brush.ToolbarForeground` | White text on toolbar |
+| `OS2.Brush.TextPrimary` | Main body text |
+| `OS2.Brush.TextSecondary` | Subdued / caption text |
+| `OS2.Brush.TextOnPrimary` | White — text on solid-Primary surfaces |
+| `OS2.Brush.TextOnPrimarySubtle` | Light blue — secondary text on selected rows |
+| `OS2.Brush.TextDisabled` | Disabled text |
+| `OS2.Brush.Success` | Green |
+| `OS2.Brush.Warning` | Amber |
+| `OS2.Brush.Danger` | Red |
+| `OS2.Brush.RowHighlight` | Light blue tint for highlighted DataGrid rows |
 
 ### Typed constants (C#)
 
-Use `Os2ResourceKey` instead of magic strings in code-behind:
+Use `Os2ResourceKey` instead of magic strings:
 
 ```csharp
 using TripleZeroLabs.Os2;
 
 element.SetResourceReference(Control.ForegroundProperty, Os2ResourceKey.Brush.Primary);
-var style = (Style)FindResource(Os2ResourceKey.Button.Success);
-var bannerStyle = (Style)FindResource(Os2ResourceKey.Banner.Info);
-var dialogStyle = (Style)FindResource(Os2ResourceKey.Dialog);
+var style     = (Style)FindResource(Os2ResourceKey.Button.Success);
+var banner    = (Style)FindResource(Os2ResourceKey.Banner.Info);
+var dialog    = (Style)FindResource(Os2ResourceKey.Dialog);
 ```
 
 ---
 
-## Preview the gallery
+## Requirements
 
+- Windows (WPF is Windows-only)
+- One of: .NET Framework 4.8, .NET 8, or .NET 10
+- No additional dependencies
+
+---
+
+---
+
+## Building from source
+
+```bash
+git clone https://github.com/TripleZeroLabs/TripleZeroLabs.Os2.git
+cd TripleZeroLabs.Os2
+dotnet build
 ```
+
+Run the gallery to see every control and state live:
+
+```bash
 cd TripleZeroLabs.Os2.Gallery
 dotnet run
 ```
 
-Opens a live window with every styled control — typography, buttons, form fields, nav,
-tabs, data grid, and the full colour palette — including hover, active, and disabled states.
+| Project | Purpose |
+|---|---|
+| `TripleZeroLabs.Os2` | The theme library — this is what you reference |
+| `TripleZeroLabs.Os2.Gallery` | Runnable WPF app showing every control and its states |
+
+---
+
+## AI assistant onboarding
+
+> This repo ships an [Agent Skill](os2-wpf-theme/SKILL.md) — a structured context file that
+> teaches any compatible AI coding assistant how to apply the OS2 theme correctly. Once set up,
+> your agent knows every resource key, which controls are auto-styled vs. opt-in, and the
+> gotchas that silently break the theme.
+
+Copy the skill folder into your project:
+
+```bash
+cp -r path/to/TripleZeroLabs.Os2/os2-wpf-theme ./os2-wpf-theme
+```
+
+### Claude Code
+
+```bash
+mkdir -p .claude/skills
+cp -r os2-wpf-theme .claude/skills/os2-wpf-theme
+```
+
+Claude Code indexes `SKILL.md` on startup and loads the full body when you work on XAML. No further configuration needed.
+
+### Cursor
+
+```bash
+mkdir -p .cursor/rules
+cp os2-wpf-theme/SKILL.md .cursor/rules/os2-wpf-theme.mdc
+cp os2-wpf-theme/references/resource-keys.md .cursor/rules/os2-resource-keys.mdc
+```
+
+### GitHub Copilot
+
+```bash
+cat os2-wpf-theme/SKILL.md >> .github/copilot-instructions.md
+```
+
+Or attach on demand in Copilot Chat: `@workspace #file:os2-wpf-theme/SKILL.md`
+
+### ChatGPT
+
+Upload [`os2-wpf-theme/SKILL.md`](os2-wpf-theme/SKILL.md) as a file attachment at the start of a conversation, or paste it into a Custom GPT's system instructions for permanent context.
+
+### Gemini
+
+```bash
+mkdir -p .gemini
+cat os2-wpf-theme/SKILL.md >> .gemini/context.md
+```
+
+Or paste the skill contents into a Gem system prompt.
+
+### JetBrains AI Assistant
+
+Open **Settings → AI Assistant → Prompt Library**, add a new entry, paste the contents of [`os2-wpf-theme/SKILL.md`](os2-wpf-theme/SKILL.md), and set its scope to the project.
+
+### Any other agent
+
+| Mechanism | What to use |
+|---|---|
+| System prompt / instructions | Paste `SKILL.md` content |
+| Knowledge base / context files | Upload `SKILL.md` + `references/resource-keys.md` |
+| `@file` / `#file` attachment | Reference `os2-wpf-theme/SKILL.md` inline |
+
+The skill follows the open [Agent Skills spec](https://agentskills.io/specification) — any agent built to that standard picks it up automatically.
 
 ---
 
 ## License
 
-MIT + Commons Clause — you may use this theme in commercial products and sell
-applications that incorporate it. You may not sell or commercially distribute
-the theme library itself as a standalone product.
-See [LICENSE](LICENSE) for the full text.
+MIT — free to use in commercial products. See [LICENSE](LICENSE) for the full text.
