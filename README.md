@@ -17,7 +17,7 @@ dotnet add package TripleZeroLabs.Os2
 Or add the package reference manually:
 
 ```xml
-<PackageReference Include="TripleZeroLabs.Os2" Version="0.1.0" />
+<PackageReference Include="TripleZeroLabs.Os2" Version="0.2.0" />
 ```
 
 ---

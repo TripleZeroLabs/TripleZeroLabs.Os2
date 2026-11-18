@@ -18,7 +18,8 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Company>Triple Zero Labs, LLC</Company>
     <Product>OS2</Product>
-    <Version>0.1.0</Version>
+    <!-- Bump together with CHANGELOG.md; the publish workflow packs this version when a v* tag is pushed. -->
+    <Version>0.2.0</Version>
     <Authors>Triple Zero Labs, LLC</Authors>
     <Copyright>Copyright © 2026 Triple Zero Labs, LLC</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -26,13 +27,16 @@
     <PackageDescription>A dependency-free WPF theme (net48/net8/net10) for standalone desktop apps, plugin hosts, and embedded tool windows.</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>wpf;xaml;dotnet;theme;ui;wpf-theme</PackageTags>
+    <PackageProjectUrl>https://github.com/TripleZeroLabs/TripleZeroLabs.Os2</PackageProjectUrl>
+    <PackageReleaseNotes>Adds OS2 styles for DatePicker/Calendar, ProgressBar, Hyperlink, scrollbars, Expander, ToggleButton (sliding switch), TreeView, GridSplitter and ToolTip. Full notes: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/TripleZeroLabs/TripleZeroLabs.Os2</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
-    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <!-- NuGet gets its own trimmed README (absolute links, no HTML), packed as README.md. -->
+    <None Include="..\README.nuget.md" Pack="true" PackagePath="\README.md" />
     <None Include="..\assets\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
