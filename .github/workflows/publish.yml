@@ -15,7 +15,7 @@ name: Publish to NuGet
 #
 # Authentication uses NuGet Trusted Publishing: no stored API key. GitHub issues an
 # OIDC token that nuget.org exchanges for a short-lived key, under the policy for
-# TripleZeroLabs/TripleZeroLabs.Os2 + publish.yml on the jmerlan nuget.org account.
+# TripleZeroLabs/TripleZeroLabs.Os2 + publish.yml on the TripleZeroLabs nuget.org account.
 #
 # To (re)publish an existing release by hand: gh workflow run publish.yml -f tag=v0.2.0
 
@@ -82,7 +82,7 @@ jobs:
         id: login
         uses: NuGet/login@v1
         with:
-          user: jmerlan
+          user: TripleZeroLabs   # nuget.org account that owns the package and the trusted-publishing policy
 
       - name: Push to NuGet
         shell: pwsh
