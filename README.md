@@ -4,6 +4,8 @@ A dependency-free WPF theme. No MaterialDesign, no MahApps — plain `ResourceDi
 that compile to BAML. Drop it in, merge one URI, and every standard WPF control is styled.
 Targets `net48`, `net8.0-windows`, and `net10.0-windows`.
 
+More information on NuGet: https://www.nuget.org/packages/TripleZeroLabs.Os2
+
 ---
 
 ## Installation
