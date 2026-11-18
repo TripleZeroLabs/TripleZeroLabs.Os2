@@ -1,27 +1,66 @@
 name: Publish to NuGet
 
+# Releases are built and Authenticode-signed locally (signing happens only on the
+# maintainer's machine), then published by attaching the signed package to a
+# GitHub Release:
+#
+#   1. Bump <Version> in TripleZeroLabs.Os2.csproj and update CHANGELOG.md.
+#   2. dotnet pack TripleZeroLabs.Os2/TripleZeroLabs.Os2.csproj -c Release -o artifacts/<version>
+#      (Directory.Build.targets signs the DLLs during the build.)
+#   3. gh release create v<version> artifacts/<version>/*.nupkg ... --notes-file <notes>
+#
+# This workflow never builds. It downloads the .nupkg attached to the release,
+# refuses to publish unless the version matches the tag and every DLL carries a
+# valid Triple Zero Labs LLC signature, then pushes it to nuget.org.
+
 on:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [published]
+
+permissions:
+  contents: read
 
 jobs:
   publish:
     runs-on: windows-latest
-    permissions:
-      id-token: write   # required for NuGet Trusted Publishing (keyless OIDC)
+
+    env:
+      TAG: ${{ github.event.release.tag_name }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Download the signed package from the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: gh release download $env:TAG --repo $env:GITHUB_REPOSITORY --pattern '*.nupkg' --dir nupkg
 
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: |
-            8.x
-            10.x
+      - name: Verify version and signatures
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $pkgs = @(Get-ChildItem nupkg -Filter *.nupkg)
+          if ($pkgs.Count -ne 1) { throw "Expected exactly one .nupkg on release $env:TAG, found $($pkgs.Count)." }
 
-      - name: Pack
-        run: dotnet pack TripleZeroLabs.Os2/TripleZeroLabs.Os2.csproj -c Release -o ./nupkg
+          $extract = Join-Path $env:RUNNER_TEMP 'pkg'
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          [IO.Compression.ZipFile]::ExtractToDirectory($pkgs[0].FullName, $extract)
+
+          $nuspec  = [xml](Get-Content (Get-ChildItem $extract -Filter *.nuspec).FullName)
+          $version = $nuspec.package.metadata.version
+          if ("v$version" -ne $env:TAG) { throw "Package version $version does not match release tag $env:TAG." }
+
+          $dlls = @(Get-ChildItem (Join-Path $extract 'lib') -Recurse -Filter *.dll)
+          if ($dlls.Count -eq 0) { throw 'No DLLs found under lib/ in the package.' }
+          foreach ($dll in $dlls) {
+              $sig = Get-AuthenticodeSignature $dll.FullName
+              $who = if ($sig.SignerCertificate) { $sig.SignerCertificate.Subject } else { '(unsigned)' }
+              Write-Host "$($dll.Directory.Name)/$($dll.Name): $($sig.Status) - $who"
+              if ($sig.Status -ne 'Valid' -or $who -notlike 'CN=Triple Zero Labs LLC,*') {
+                  throw "$($dll.Directory.Name)/$($dll.Name) is not validly signed by Triple Zero Labs LLC. Refusing to publish."
+              }
+          }
+          Write-Host "OK: $($pkgs[0].Name) is version $version with $($dlls.Count) signed DLLs."
 
       - name: Push to NuGet
-        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        shell: pwsh
+        run: dotnet nuget push (Get-ChildItem nupkg -Filter *.nupkg).FullName --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
