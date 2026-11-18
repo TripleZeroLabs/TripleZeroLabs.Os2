@@ -76,6 +76,15 @@ Merging the theme is enough. Every instance of these controls is themed:
 | `TabItem` | Underline indicator on selected, subdued when inactive |
 | `ContextMenu` | White, CornerRadius 6, soft drop shadow |
 | `MenuItem` | Rounded, SurfaceAlt highlight, generous padding |
+| `DatePicker` / `Calendar` | TextBox look + calendar icon; rounded day cells, today outlined, selection solid primary |
+| `ProgressBar` | Slim 6 px rounded bar; fill follows `Foreground`; animated indeterminate sweep |
+| `Hyperlink` | Primary blue, underline on hover |
+| `ScrollViewer` / `ScrollBar` | Slim arrow-less bars, rounded thumb, transparent corner |
+| `Expander` | Bordered card, SemiBold header, chevron flips when open |
+| `ToggleButton` | Sliding switch: dark grey off, primary blue on; label inside the track (`Content` = on label, `Tag` = off label) |
+| `TreeView` / `TreeViewItem` | Rotating chevrons, rounded hover rows, RowHighlight selection |
+| `GridSplitter` | 1 px hairline that turns primary on hover / drag |
+| `ToolTip` | Dark toolbar-coloured bubble, white 12 px text, soft shadow |
 
 ### Explicit styles — must set `Style="{StaticResource KEY}"`
 

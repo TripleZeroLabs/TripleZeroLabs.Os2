@@ -75,6 +75,14 @@ namespace TripleZeroLabs.Os2
             public const string Flat             = "OS2.Button.Flat";
             public const string Success          = "OS2.Button.Success";
             public const string SuccessSecondary = "OS2.Button.SuccessSecondary";
+            public const string Subtle           = "OS2.Button.Subtle";
+            public const string Icon             = "OS2.Button.Icon";
+        }
+
+        /// <summary>Named ToggleButton styles beyond the default (switch) toggle.</summary>
+        public static class ToggleButton
+        {
+            public const string Segment = "OS2.ToggleButton.Segment";
         }
 
         /// <summary>Banner / toast notification Border styles.</summary>
@@ -84,6 +92,28 @@ namespace TripleZeroLabs.Os2
             public const string Info    = "OS2.Banner.Info";
             public const string Warning = "OS2.Banner.Warning";
             public const string Danger  = "OS2.Banner.Danger";
+        }
+
+        /// <summary>Stroked glyph geometries (use with <see cref="GlyphPath"/>).</summary>
+        public static class Geometry
+        {
+            public const string ChevronDown  = "OS2.Geometry.ChevronDown";
+            public const string ChevronRight = "OS2.Geometry.ChevronRight";
+            public const string ChevronLeft  = "OS2.Geometry.ChevronLeft";
+            public const string Calendar     = "OS2.Geometry.Calendar";
+        }
+
+        /// <summary>Path style for stroked glyphs; Stroke follows the parent Control's Foreground.</summary>
+        public const string GlyphPath = "OS2.Path.Glyph";
+
+        /// <summary>Shared drop shadow for floating surfaces (drop-downs, menus, tooltips).</summary>
+        public const string PopupShadow = "OS2.Effect.PopupShadow";
+
+        /// <summary>Calendar styles.</summary>
+        public static class Calendar
+        {
+            public const string Default = "OS2.Calendar";
+            public const string Popup   = "OS2.Calendar.Popup";
         }
 
         /// <summary>Dialog card Border style.</summary>

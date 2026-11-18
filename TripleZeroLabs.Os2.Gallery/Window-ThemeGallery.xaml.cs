@@ -31,6 +31,9 @@ namespace TripleZeroLabs.Os2.Gallery
             LoadSampleCombo();
             LoadSampleGrid();
             BuildSwatches();
+
+            SampleDate.SelectedDate = System.DateTime.Today.AddDays(2);
+            SampleDateDisabled.SelectedDate = System.DateTime.Today;
         }
 
         private void LoadSampleCombo()

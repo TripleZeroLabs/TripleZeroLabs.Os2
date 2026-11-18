@@ -82,6 +82,15 @@ Once applied, all standard WPF controls pick up OS2 styles automatically — no 
 | `TabItem` | Primary underline on selected tab |
 | `ContextMenu` | White, CornerRadius 6, soft drop shadow |
 | `MenuItem` | Rounded, SurfaceAlt highlight, generous padding |
+| `DatePicker` / `Calendar` | TextBox look + calendar icon; rounded day cells, today outlined, selection solid primary |
+| `ProgressBar` | Slim 6 px rounded bar; fill follows `Foreground`; animated indeterminate sweep |
+| `Hyperlink` | Primary blue, underline on hover |
+| `ScrollViewer` / `ScrollBar` | Slim arrow-less bars, rounded thumb, transparent corner |
+| `Expander` | Bordered card, SemiBold header, chevron flips when open |
+| `ToggleButton` | Sliding switch: dark grey off, primary blue on; label inside the track (`Content` = on label, `Tag` = off label) |
+| `TreeView` / `TreeViewItem` | Rotating chevrons, rounded hover rows, RowHighlight selection |
+| `GridSplitter` | 1 px hairline that turns primary on hover / drag |
+| `ToolTip` | Dark toolbar-coloured bubble, white 12 px text, soft shadow |
 
 ### Keyed styles — apply with `Style="{StaticResource KEY}"`
 
@@ -95,6 +104,9 @@ Once applied, all standard WPF controls pick up OS2 styles automatically — no 
 | `OS2.Button.Flat` | Button | Text-only (Cancel, Skip) |
 | `OS2.Button.Success` | Button | Solid green — positive confirming action |
 | `OS2.Button.SuccessSecondary` | Button | Outlined green |
+| `OS2.Button.Icon` | Button | Square, transparent, glyph-only (toolbar icons) |
+| `OS2.ToggleButton.Segment` | ToggleButton | Button-shaped toggle for segmented pickers (Day / Week / Month) |
+| `OS2.Calendar.Popup` | Calendar | Calendar with the floating drop-down shadow |
 | `OS2.Banner.Default` | Border | Neutral grey accent-bar notification |
 | `OS2.Banner.Info` | Border | Blue-tinted notification |
 | `OS2.Banner.Warning` | Border | Amber-tinted notification |

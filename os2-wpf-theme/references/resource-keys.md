@@ -195,6 +195,31 @@ Sets Background=white, CornerRadius=8, Padding=28, 1px border, and a reduced dro
 
 ---
 
+## Keyed Styles — Icon button & glyphs
+
+`OS2.Button.Icon` is a square, transparent button for glyph-only actions (hover = SurfaceAlt).
+Pair it with a `Path` using `OS2.Path.Glyph` and one of the shared geometries
+(`OS2.Geometry.ChevronDown`, `ChevronRight`, `ChevronLeft`, `Calendar`) — the stroke follows the button's Foreground.
+
+```xml
+<Button Style="{StaticResource OS2.Button.Icon}" ToolTip="Previous">
+    <Path Data="{StaticResource OS2.Geometry.ChevronLeft}" Style="{StaticResource OS2.Path.Glyph}" />
+</Button>
+```
+
+**ProgressBar colour:** the fill follows `Foreground`, e.g. `Foreground="{DynamicResource OS2.Brush.Success}"`.
+
+**ToggleButton (switch):** `Content` is the label shown when on, `Tag` the label shown when off (omit `Tag` to show `Content` in both).
+The track sizes to the longer label. For a button-shaped toggle use `Style="{StaticResource OS2.ToggleButton.Segment}"`.
+
+```xml
+<ToggleButton Content="ON" Tag="OFF" IsChecked="{Binding ShowGrid}" />
+```
+
+**GridSplitter:** give a column splitter `Width="5"`; a row splitter `Height="5" HorizontalAlignment="Stretch"`.
+
+---
+
 ## Keyed Styles — Navigation
 
 Both keys must be set for the sidebar to look correct.
@@ -243,6 +268,14 @@ Os2ResourceKey.Banner.Danger            // "OS2.Banner.Danger"
 
 // Dialog
 Os2ResourceKey.Dialog                   // "OS2.Dialog"
+
+// Icon button + shared glyphs / effects
+Os2ResourceKey.Button.Icon              // "OS2.Button.Icon"
+Os2ResourceKey.Geometry.ChevronDown     // "OS2.Geometry.ChevronDown"  (also ChevronRight, ChevronLeft, Calendar)
+Os2ResourceKey.GlyphPath                // "OS2.Path.Glyph"  — stroked Path whose Stroke follows the parent Control's Foreground
+Os2ResourceKey.PopupShadow              // "OS2.Effect.PopupShadow" — shared by ComboBox, ContextMenu, Calendar, ToolTip
+Os2ResourceKey.Calendar.Popup           // "OS2.Calendar.Popup"
+Os2ResourceKey.ToggleButton.Segment     // "OS2.ToggleButton.Segment"
 
 // Nav
 Os2ResourceKey.Nav.ListBox              // "OS2.Nav.ListBox"
