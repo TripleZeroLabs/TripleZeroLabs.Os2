@@ -12,22 +12,39 @@ name: Publish to NuGet
 # This workflow never builds. It downloads the .nupkg attached to the release,
 # refuses to publish unless the version matches the tag and every DLL carries a
 # valid Triple Zero Labs LLC signature, then pushes it to nuget.org.
+#
+# Authentication uses NuGet Trusted Publishing: no stored API key. GitHub issues an
+# OIDC token that nuget.org exchanges for a short-lived key, under the policy for
+# TripleZeroLabs/TripleZeroLabs.Os2 + publish.yml on the jmerlan nuget.org account.
+#
+# To (re)publish an existing release by hand: gh workflow run publish.yml -f tag=v0.2.0
 
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag whose attached .nupkg should be published (e.g. v0.2.0)
+        required: true
 
 permissions:
   contents: read
+  id-token: write   # required for NuGet Trusted Publishing (OIDC)
 
 jobs:
   publish:
     runs-on: windows-latest
 
     env:
-      TAG: ${{ github.event.release.tag_name }}
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
 
     steps:
+      - name: Check tag
+        shell: pwsh
+        run: |
+          if ($env:TAG -notmatch '^v\d+\.\d+\.\d+([-.][0-9A-Za-z.-]+)?$') { throw "'$env:TAG' is not a release tag like v1.2.3." }
+
       - name: Download the signed package from the release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -61,6 +78,14 @@ jobs:
           }
           Write-Host "OK: $($pkgs[0].Name) is version $version with $($dlls.Count) signed DLLs."
 
+      - name: NuGet login (Trusted Publishing)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: jmerlan
+
       - name: Push to NuGet
         shell: pwsh
-        run: dotnet nuget push (Get-ChildItem nupkg -Filter *.nupkg).FullName --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: dotnet nuget push (Get-ChildItem nupkg -Filter *.nupkg).FullName --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_API_KEY
