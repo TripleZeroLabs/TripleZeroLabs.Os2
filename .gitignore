@@ -15,3 +15,6 @@ packages/
 
 ## Signing — contains Azure Trusted Signing account details (no secrets, but keep out of source)
 signing-metadata.json
+
+## Local release builds (signed packages live on the GitHub Release, not in git)
+artifacts/
