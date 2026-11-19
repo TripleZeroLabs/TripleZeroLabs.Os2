@@ -8,6 +8,17 @@ While the version is below 1.0, minor releases may include visual changes to exi
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-19
+
+### Fixed
+
+- `Os2MessageBox` no longer crashes inside host applications such as Revit. It used to set `Owner` to
+  `Application.Current.MainWindow`, a window the host never shows, so WPF threw
+  `InvalidOperationException` ("Cannot set Owner property to a Window that has not been shown previously").
+  A window, including one you pass in, now owns the box only when it is loaded and visible on the same
+  UI thread; otherwise the box is centred on the screen. Inside a host app, pass your own visible window
+  as `owner`.
+
 ## [0.2.0] - 2026-11-18
 
 ### Added
@@ -63,6 +74,7 @@ While the version is below 1.0, minor releases may include visual changes to exi
 - `Os2ResourceKey` — typed constants for every resource key.
 - Gallery app and an AI-assistant skill (`os2-wpf-theme/`).
 
-[Unreleased]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/releases/tag/v0.1.0

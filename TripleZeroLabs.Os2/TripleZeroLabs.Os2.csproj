@@ -19,7 +19,7 @@
     <Company>Triple Zero Labs, LLC</Company>
     <Product>OS2</Product>
     <!-- Bump together with CHANGELOG.md; the publish workflow packs this version when a v* tag is pushed. -->
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <Authors>Triple Zero Labs, LLC</Authors>
     <Copyright>Copyright © 2026 Triple Zero Labs, LLC</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -28,7 +28,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>wpf;xaml;dotnet;theme;ui;wpf-theme</PackageTags>
     <PackageProjectUrl>https://github.com/TripleZeroLabs/TripleZeroLabs.Os2</PackageProjectUrl>
-    <PackageReleaseNotes>Adds OS2 styles for DatePicker/Calendar, ProgressBar, Hyperlink, scrollbars, Expander, ToggleButton (sliding switch), TreeView, GridSplitter and ToolTip. Full notes: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixes a crash in Os2MessageBox inside host apps such as Revit: the box no longer sets Owner to a window that is not loaded and visible, and is centred on the screen instead. Full notes: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/TripleZeroLabs/TripleZeroLabs.Os2</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>

@@ -17,7 +17,7 @@ dotnet add package TripleZeroLabs.Os2
 Or add the package reference manually:
 
 ```xml
-<PackageReference Include="TripleZeroLabs.Os2" Version="0.2.0" />
+<PackageReference Include="TripleZeroLabs.Os2" Version="0.2.1" />
 ```
 
 ---
@@ -154,6 +154,8 @@ if (result == MessageBoxResult.OK) { /* proceed */ }
 
 `MessageBoxImage.Error` automatically promotes the confirm button to `OS2.Button.DangerSolid`.
 `Enter` and `Escape` are wired to the appropriate buttons based on the button set.
+
+**Owner window:** a window owns the box only when it is loaded and visible; otherwise the box is centred on the screen. Inside a host application (Revit, AutoCAD, …) pass your own visible window as the first argument — `Os2MessageBox.Show(myWindow, "…")` — because the host's `Application.MainWindow` is often never shown.
 
 ---
 

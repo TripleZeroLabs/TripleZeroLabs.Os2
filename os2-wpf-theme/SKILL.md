@@ -5,7 +5,7 @@ license: MIT-Commons-Clause
 compatibility: WPF projects targeting net48, net8.0-windows, or net10.0-windows. Requires a ProjectReference to TripleZeroLabs.Os2.
 metadata:
   author: Triple Zero Labs
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 ## Installation
