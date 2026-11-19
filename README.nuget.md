@@ -30,9 +30,11 @@ Os2Theme.Apply(myWindow);   // one window only: safe for plugin / add-in hosts
 
 ## What gets styled
 
-**Automatically (implicit styles):** Window, TextBlock, Label, Button, TextBox, PasswordBox, ComboBox, CheckBox,
-ListBox, DataGrid, TabControl, ContextMenu / MenuItem, DatePicker / Calendar, ProgressBar, Hyperlink,
-ScrollViewer / ScrollBar, Expander, ToggleButton (sliding switch), TreeView, GridSplitter and ToolTip.
+**Automatically (implicit styles):** Window, TextBlock, Label, Button, RepeatButton, TextBox, PasswordBox,
+RichTextBox, ComboBox, CheckBox, RadioButton, Slider, ListBox, ListView / GridView, DataGrid, TabControl,
+Menu / ContextMenu / MenuItem, Separator, ToolBar / ToolBarTray, StatusBar, GroupBox, DatePicker / Calendar,
+ProgressBar, Hyperlink, ScrollViewer / ScrollBar, Expander, ToggleButton (sliding switch), TreeView, GridSplitter
+and ToolTip.
 
 **Opt-in (keyed styles):**
 
@@ -40,6 +42,7 @@ ScrollViewer / ScrollBar, Expander, ToggleButton (sliding switch), TreeView, Gri
 |---|---|
 | `OS2.Button.Secondary` / `Danger` / `DangerSolid` / `Flat` / `Subtle` / `Success` / `SuccessSecondary` / `Icon` | Button variants |
 | `OS2.ToggleButton.Segment` | Button-shaped toggle for segmented pickers |
+| `OS2.Separator.Vertical` | Vertical hairline for horizontal rows |
 | `OS2.Text.Heading` / `OS2.Text.Caption` | Typography |
 | `OS2.Banner.Default` / `Info` / `Warning` / `Danger` | Notification banners (on a `Border`) |
 | `OS2.Dialog` | Floating dialog card (on a `Border`) |
@@ -50,6 +53,7 @@ ScrollViewer / ScrollBar, Expander, ToggleButton (sliding switch), TreeView, Gri
 <Button Style="{StaticResource OS2.Button.Secondary}" Content="Export" />
 <ToggleButton Content="ON" Tag="OFF" IsChecked="{Binding ShowGrid}" /> <!-- switch with labels -->
 <ProgressBar Value="40" Foreground="{DynamicResource OS2.Brush.Success}" />
+<Slider Value="70" TickFrequency="10" TickPlacement="BottomRight" />
 ```
 
 Use `{DynamicResource OS2.Brush.*}` for colours (`Primary`, `Surface`, `Border`, `TextPrimary`, `TextSecondary`,

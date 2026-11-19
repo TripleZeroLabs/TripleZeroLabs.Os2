@@ -124,10 +124,17 @@ These `TargetType`-only styles activate on all instances of the control once the
 | `Button` | Solid Primary blue, CornerRadius=4, white text, hover/pressed/disabled states |
 | `TextBox` | CornerRadius=4, Border focus ring (BorderFocus), disabled Surface fill |
 | `PasswordBox` | Identical appearance to TextBox |
+| `RichTextBox` | TextBox look (shared `OS2.TextInputBase`), MinHeight=80, vertical scrollbar Auto, Paragraph margin 0,0,0,6 |
 | `ComboBox` | Gradient raised border (light-top → grey-bottom), white popup + drop shadow |
 | `ComboBoxItem` | Rounded, Padding=12,9, SurfaceAlt on IsHighlighted, Primary fg when selected |
 | `CheckBox` | 16×16 rounded tick box, full-row hover background (SurfaceAlt), indeterminate dash |
-| `ListBox` | Light Border, TextPrimary foreground |
+| `RadioButton` | 16×16 round box, same row/hover as CheckBox; checked = Primary fill + white dot |
+| `Slider` | 4px Border-coloured track; fill and 16px knob ring follow Foreground (default Primary); TickPlacement and Orientation=Vertical supported |
+| `RepeatButton` | Outlined neutral (Border outline, TextPrimary) via `OS2.Template.SecondaryButton`; Height 32 |
+| `ListBox` | Light Border, CornerRadius=4, Padding=4 |
+| `ListBoxItem` | Padding=10,7, CornerRadius=4, SurfaceAlt hover, RowHighlight + Primary fg when selected (`OS2.ListItemBase`) |
+| `ListView` + `GridView` | DataGrid look: `GridViewColumnHeader` SemiBold 12px TextSecondary with 2px baseline; rows Padding=10,10 with 1px dividers, SurfaceAlt hover, Primary + TextOnPrimary when selected |
+| `ListView` (no View) | Same as ListBox / ListBoxItem |
 | `DataGrid` | No outer border, horizontal grid lines only, RowHeaderWidth=0, ColumnHeaderHeight=42 |
 | `DataGridColumnHeader` | SemiBold 12px, TextSecondary, bottom-only 2px border, sort arrows |
 | `DataGridRow` | Background=Background, SurfaceAlt on hover |
@@ -135,8 +142,22 @@ These `TargetType`-only styles activate on all instances of the control once the
 | `TabControl` | Surface tab strip with hairline baseline, transparent content area |
 | `TabItem` | 14px SemiBold, Primary underline + foreground when selected |
 | `ContextMenu` | White, CornerRadius=6, 1px border, Padding=0,4, soft drop shadow |
-| `MenuItem` | Segoe UI 13px, Padding=12,9, SurfaceAlt on IsHighlighted |
-| `Separator` (in menu) | 1px Border brush, Margin=8,4 (via `{x:Static MenuItem.SeparatorStyleKey}`) |
+| `Menu` | Surface background, 1px bottom border, Padding=4,3; top-level items Padding=10,5 |
+| `MenuItem` | Segoe UI 13px, Padding=12,9, SurfaceAlt on IsHighlighted / IsSubmenuOpen; icon column, Primary check mark, InputGestureText (TextSecondary 12px), ChevronRight for submenus |
+| `Separator` (in menu) | 1px Border brush, Margin=12,4 (via `{x:Static MenuItem.SeparatorStyleKey}`) |
+| `Separator` (elsewhere) | 1px horizontal Border-brush line, Margin=0,8 |
+| `GroupBox` | 1px border, CornerRadius=6, SemiBold header row (Padding=16,10) over a hairline, content Padding=16,12 |
+| `ToolBarTray` / `ToolBar` | Surface background; dotted grip (hidden when `ToolBarTray.IsLocked`); overflow chevron + popup. Items get `ToolBar.*StyleKey` styles: flat Button (based on `OS2.Button.Icon`), RowHighlight ToggleButton, 28px ComboBox/TextBox, vertical Separator |
+| `StatusBar` / `StatusBarItem` | Surface, 1px top border, TextSecondary 12px; items Padding=8,4; vertical separators |
+| `DatePicker` / `Calendar` | TextBox look + calendar icon; rounded day cells, today outlined, selection solid Primary |
+| `ProgressBar` | 6px rounded bar; fill follows Foreground; indeterminate sweep |
+| `Hyperlink` | Primary, underline on hover; disabled = TextDisabled + underline |
+| `ScrollViewer` / `ScrollBar` | 10px arrow-less bars, rounded thumb, transparent corner |
+| `Expander` | Bordered card, SemiBold header, chevron flips when open |
+| `ToggleButton` | Sliding switch (`Content` = on label, `Tag` = off label) |
+| `TreeView` / `TreeViewItem` | Rotating chevrons, rounded hover rows, RowHighlight selection |
+| `GridSplitter` | 1px TextDisabled hairline, Primary on hover/drag |
+| `ToolTip` | Toolbar-coloured bubble, white 12px text, soft shadow |
 
 ---
 
@@ -199,7 +220,7 @@ Sets Background=white, CornerRadius=8, Padding=28, 1px border, and a reduced dro
 
 `OS2.Button.Icon` is a square, transparent button for glyph-only actions (hover = SurfaceAlt).
 Pair it with a `Path` using `OS2.Path.Glyph` and one of the shared geometries
-(`OS2.Geometry.ChevronDown`, `ChevronRight`, `ChevronLeft`, `Calendar`) — the stroke follows the button's Foreground.
+(`OS2.Geometry.ChevronDown`, `ChevronRight`, `ChevronLeft`, `Calendar`) — the stroke follows the inherited text colour (`TextElement.Foreground`, i.e. the button's Foreground). This also works for `MenuItem.Icon` and ToolBar buttons.
 
 ```xml
 <Button Style="{StaticResource OS2.Button.Icon}" ToolTip="Previous">
@@ -217,6 +238,27 @@ The track sizes to the longer label. For a button-shaped toggle use `Style="{Sta
 ```
 
 **GridSplitter:** give a column splitter `Width="5"`; a row splitter `Height="5" HorizontalAlignment="Stretch"`.
+
+**Slider colour:** like the ProgressBar, the fill and knob ring follow `Foreground`.
+
+**Menu items with icons, check marks and shortcuts:**
+
+```xml
+<Menu>
+    <MenuItem Header="_File">
+        <MenuItem Header="_Open..." InputGestureText="Ctrl+O">
+            <MenuItem.Icon><Path Data="{StaticResource OS2.Geometry.Calendar}" Style="{StaticResource OS2.Path.Glyph}" /></MenuItem.Icon>
+        </MenuItem>
+        <MenuItem Header="_Auto-save" IsCheckable="True" IsChecked="True" />
+        <Separator />
+        <MenuItem Header="E_xit" />
+    </MenuItem>
+</Menu>
+```
+
+**Vertical separator** in a horizontal row: `<Separator Style="{StaticResource OS2.Separator.Vertical}" />` (ToolBar and StatusBar do this automatically).
+
+**ListView vs DataGrid:** a `ListView` with a `GridView` already looks like the DataGrid; use it for read-only lists and the DataGrid for editing.
 
 ---
 
@@ -272,10 +314,18 @@ Os2ResourceKey.Dialog                   // "OS2.Dialog"
 // Icon button + shared glyphs / effects
 Os2ResourceKey.Button.Icon              // "OS2.Button.Icon"
 Os2ResourceKey.Geometry.ChevronDown     // "OS2.Geometry.ChevronDown"  (also ChevronRight, ChevronLeft, Calendar)
-Os2ResourceKey.GlyphPath                // "OS2.Path.Glyph"  — stroked Path whose Stroke follows the parent Control's Foreground
+Os2ResourceKey.GlyphPath                // "OS2.Path.Glyph"  — stroked Path whose Stroke follows the inherited text colour
+Os2ResourceKey.Separator.Vertical       // "OS2.Separator.Vertical"
 Os2ResourceKey.PopupShadow              // "OS2.Effect.PopupShadow" — shared by ComboBox, ContextMenu, Calendar, ToolTip
 Os2ResourceKey.Calendar.Popup           // "OS2.Calendar.Popup"
 Os2ResourceKey.ToggleButton.Segment     // "OS2.ToggleButton.Segment"
+
+// Base styles to build on (BasedOn / Template)
+Os2ResourceKey.Base.Button              // "OS2.ButtonBase"     (TargetType ButtonBase)
+Os2ResourceKey.Base.TextInput           // "OS2.TextInputBase"  (TextBox, PasswordBox, RichTextBox)
+Os2ResourceKey.Base.Choice              // "OS2.ChoiceBase"     (CheckBox, RadioButton)
+Os2ResourceKey.Base.ListItem            // "OS2.ListItemBase"   (ListBoxItem, ListViewItem)
+Os2ResourceKey.Base.SecondaryButtonTemplate // "OS2.Template.SecondaryButton" (ControlTemplate)
 
 // Nav
 Os2ResourceKey.Nav.ListBox              // "OS2.Nav.ListBox"

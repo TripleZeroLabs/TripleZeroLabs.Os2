@@ -17,7 +17,7 @@ dotnet add package TripleZeroLabs.Os2
 Or add the package reference manually:
 
 ```xml
-<PackageReference Include="TripleZeroLabs.Os2" Version="0.2.1" />
+<PackageReference Include="TripleZeroLabs.Os2" Version="0.3.0" />
 ```
 
 ---
@@ -70,10 +70,15 @@ Once applied, all standard WPF controls pick up OS2 styles automatically — no 
 | `Button` | Solid primary blue, rounded, hover/pressed/disabled states |
 | `TextBox` | Rounded border, focus ring, disabled tint |
 | `PasswordBox` | Matches TextBox visually |
+| `RichTextBox` | TextBox look as a multi-line editor; compact paragraph spacing |
 | `ComboBox` | Raised border, white popup with drop shadow |
 | `ComboBoxItem` | Rounded, SurfaceAlt on hover |
 | `CheckBox` | Rounded tick box, full-row hover background |
-| `ListBox` | Light border, TextPrimary foreground |
+| `RadioButton` | CheckBox row with a round box; selected = solid primary circle with a white dot |
+| `Slider` | 4 px rounded track filled to a white ringed knob; fill follows `Foreground`; ticks and vertical orientation |
+| `RepeatButton` | Outlined neutral button for +/− steppers |
+| `ListBox` / `ListBoxItem` | Rounded bordered box; rounded rows, SurfaceAlt hover, RowHighlight selection |
+| `ListView` / `GridView` | With a GridView: the DataGrid look (SemiBold headers, row dividers, solid primary selection, resizable columns). Without a View: the ListBox look |
 | `DataGrid` | No outer border, horizontal dividers, generous cell padding |
 | `DataGridColumnHeader` | SemiBold labels, sort arrows |
 | `DataGridRow` | SurfaceAlt on hover |
@@ -81,7 +86,12 @@ Once applied, all standard WPF controls pick up OS2 styles automatically — no 
 | `TabControl` | Surface tab strip with hairline baseline |
 | `TabItem` | Primary underline on selected tab |
 | `ContextMenu` | White, CornerRadius 6, soft drop shadow |
-| `MenuItem` | Rounded, SurfaceAlt highlight, generous padding |
+| `Menu` | Menu bar: Surface strip with a hairline baseline, rounded top-level items |
+| `MenuItem` | Rounded, SurfaceAlt highlight; icons, check marks, shortcut text and submenus |
+| `Separator` | 1 px hairline (horizontal; vertical inside ToolBar and StatusBar) |
+| `GroupBox` | Bordered card with a SemiBold header row (the Expander without the chevron) |
+| `ToolBarTray` / `ToolBar` | Surface strip; flat buttons, RowHighlight toggles, vertical separators, dotted grip, overflow popup |
+| `StatusBar` | Surface strip with a hairline on top, 12 px secondary text, vertical separators |
 | `DatePicker` / `Calendar` | TextBox look + calendar icon; rounded day cells, today outlined, selection solid primary |
 | `ProgressBar` | Slim 6 px rounded bar; fill follows `Foreground`; animated indeterminate sweep |
 | `Hyperlink` | Primary blue, underline on hover |
@@ -107,6 +117,7 @@ Once applied, all standard WPF controls pick up OS2 styles automatically — no 
 | `OS2.Button.Icon` | Button | Square, transparent, glyph-only (toolbar icons) |
 | `OS2.ToggleButton.Segment` | ToggleButton | Button-shaped toggle for segmented pickers (Day / Week / Month) |
 | `OS2.Calendar.Popup` | Calendar | Calendar with the floating drop-down shadow |
+| `OS2.Separator.Vertical` | Separator | 1 px vertical hairline for horizontal rows |
 | `OS2.Banner.Default` | Border | Neutral grey accent-bar notification |
 | `OS2.Banner.Info` | Border | Blue-tinted notification |
 | `OS2.Banner.Warning` | Border | Amber-tinted notification |

@@ -8,6 +8,47 @@ While the version is below 1.0, minor releases may include visual changes to exi
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-19
+
+### Added
+
+- Implicit styles for the remaining everyday WPF controls, so a themed window no longer shows stock Windows chrome:
+  - **RadioButton** — the CheckBox row with a round box; selected is a solid primary circle with a white dot.
+  - **Slider** — 4 px rounded track filled up to a white knob with a ring. The fill follows `Foreground`
+    (like the ProgressBar). Tick marks and vertical orientation are supported.
+  - **ListView / GridView** — with a GridView it matches the DataGrid: SemiBold grey headers on a 2 px
+    baseline, hairline row dividers, solid primary selection, resizable columns. Without a View it looks like the ListBox.
+  - **ListBoxItem** — rounded rows with a SurfaceAlt hover and RowHighlight selection (the TreeView look).
+  - **Menu** (menu bar) — a Surface strip with a hairline baseline and rounded top-level items.
+  - **ToolBarTray / ToolBar** — Surface strip with flat buttons, highlighted toggles, vertical separators,
+    a dotted grip and an overflow popup. ComboBox, TextBox, CheckBox and RadioButton keep the OS2 look inside a toolbar.
+  - **StatusBar** — Surface strip with a hairline on top, 12 px secondary text and vertical separators.
+  - **GroupBox** — the Expander card without the chevron.
+  - **RichTextBox** — the TextBox look as a multi-line editor, with compact paragraph spacing.
+  - **Separator** — a 1 px hairline anywhere, not just in menus.
+  - **RepeatButton** — an outlined neutral button for +/− steppers.
+- `MenuItem` now supports icons (`Icon`), check marks (`IsCheckable`), shortcut text (`InputGestureText`)
+  and submenus, in the menu bar and in context menus.
+- New keyed resources:
+  - `OS2.Separator.Vertical` — vertical hairline for horizontal rows.
+  - Base styles to build on: `OS2.TextInputBase`, `OS2.ChoiceBase`, `OS2.ListItemBase` and the
+    `OS2.Template.SecondaryButton` control template.
+- `Os2ResourceKey.Separator` and `Os2ResourceKey.Base` constants.
+- Gallery sections for every new control, including a small app frame (menu bar, toolbar, editor, status bar).
+
+### Changed
+
+- **ListBox** now has rounded corners and themed items. Items previously used the stock Windows highlight.
+- `OS2.Path.Glyph` takes its stroke from the inherited text colour instead of the nearest Control's
+  `Foreground`. Glyphs look the same, but they now also work as menu icons and turn white on selected rows.
+- `OS2.Button.Secondary` shows a slightly darker fill while pressed.
+- TextBox, PasswordBox and RichTextBox share one base style and template; CheckBox and RadioButton share one
+  base style. Their appearance is unchanged.
+
+### Fixed
+
+- Separators in context menus were invisible (the line was squeezed to zero height). They now draw a 1 px line.
+
 ## [0.2.1] - 2026-11-19
 
 ### Fixed
@@ -74,7 +115,8 @@ While the version is below 1.0, minor releases may include visual changes to exi
 - `Os2ResourceKey` — typed constants for every resource key.
 - Gallery app and an AI-assistant skill (`os2-wpf-theme/`).
 
-[Unreleased]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/TripleZeroLabs/TripleZeroLabs.Os2/releases/tag/v0.1.0

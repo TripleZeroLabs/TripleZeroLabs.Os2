@@ -1,11 +1,11 @@
 ---
 name: os2-wpf-theme
-description: Apply the OS2 WPF theme (TripleZeroLabs.Os2) correctly in any XAML or C# file. Activate when building or editing a WPF window, page, view, or UserControl; styling any WPF control (Button, TextBox, DataGrid, ComboBox, CheckBox, DatePicker, ProgressBar, ToggleButton switch, TreeView, Expander, ToolTip, nav sidebar, tabs, dialog, banner); building a settings screen, form, dashboard, or toolbar; the user mentions OS2, Triple Zero Labs, or TripleZeroLabs.Os2; or any new Window, UserControl, or XAML file is scaffolded in a project that references TripleZeroLabs.Os2. Load this skill before writing any XAML markup or brush/style references.
+description: Apply the OS2 WPF theme (TripleZeroLabs.Os2) correctly in any XAML or C# file. Activate when building or editing a WPF window, page, view, or UserControl; styling any WPF control (Button, TextBox, RichTextBox, DataGrid, ListView/GridView, ComboBox, CheckBox, RadioButton, Slider, DatePicker, ProgressBar, ToggleButton switch, TreeView, Expander, GroupBox, Menu bar, ToolBar, StatusBar, ToolTip, nav sidebar, tabs, dialog, banner); building a settings screen, form, dashboard, or toolbar; the user mentions OS2, Triple Zero Labs, or TripleZeroLabs.Os2; or any new Window, UserControl, or XAML file is scaffolded in a project that references TripleZeroLabs.Os2. Load this skill before writing any XAML markup or brush/style references.
 license: MIT-Commons-Clause
 compatibility: WPF projects targeting net48, net8.0-windows, or net10.0-windows. Requires a ProjectReference to TripleZeroLabs.Os2.
 metadata:
   author: Triple Zero Labs
-  version: "0.2.1"
+  version: "0.3.0"
 ---
 
 ## Installation
@@ -64,10 +64,15 @@ Merging the theme is enough. Every instance of these controls is themed:
 | `Button` | Solid primary blue, rounded, hover/pressed/disabled states |
 | `TextBox` | Rounded border, focus ring, disabled tint |
 | `PasswordBox` | Matches TextBox visually |
+| `RichTextBox` | TextBox look as a multi-line editor; compact paragraph spacing |
 | `ComboBox` | Gradient raised border, white popup with drop shadow |
 | `ComboBoxItem` | Rounded, SurfaceAlt on hover, Primary foreground when selected |
 | `CheckBox` | Rounded tick box, full-row hover background |
-| `ListBox` | Light border, TextPrimary foreground |
+| `RadioButton` | CheckBox row with a round box; selected = solid primary circle with a white dot |
+| `Slider` | 4 px rounded track filled to a white ringed knob; fill follows `Foreground`; ticks and vertical orientation |
+| `RepeatButton` | Outlined neutral button for +/- steppers |
+| `ListBox` / `ListBoxItem` | Rounded bordered box; rounded rows, SurfaceAlt hover, RowHighlight + Primary text when selected |
+| `ListView` / `GridView` | With a GridView: the DataGrid look (SemiBold headers, row dividers, solid primary selection). Without a View: the ListBox look |
 | `DataGrid` | No outer border, horizontal dividers, generous cell padding |
 | `DataGridColumnHeader` | SemiBold labels, bottom baseline, sort arrows |
 | `DataGridRow` | SurfaceAlt on hover |
@@ -75,7 +80,12 @@ Merging the theme is enough. Every instance of these controls is themed:
 | `TabControl` | Surface tab strip with hairline baseline |
 | `TabItem` | Underline indicator on selected, subdued when inactive |
 | `ContextMenu` | White, CornerRadius 6, soft drop shadow |
-| `MenuItem` | Rounded, SurfaceAlt highlight, generous padding |
+| `Menu` | Menu bar: Surface strip with a hairline baseline |
+| `MenuItem` | Rounded, SurfaceAlt highlight; `Icon`, check marks (`IsCheckable`), `InputGestureText` and submenus |
+| `Separator` | 1 px hairline (horizontal; vertical inside ToolBar and StatusBar) |
+| `GroupBox` | Bordered card with a SemiBold header row |
+| `ToolBarTray` / `ToolBar` | Surface strip; Buttons inside are flat, ToggleButtons turn RowHighlight when on, separators are vertical |
+| `StatusBar` | Surface strip with a hairline on top, 12 px secondary text |
 | `DatePicker` / `Calendar` | TextBox look + calendar icon; rounded day cells, today outlined, selection solid primary |
 | `ProgressBar` | Slim 6 px rounded bar; fill follows `Foreground`; animated indeterminate sweep |
 | `Hyperlink` | Primary blue, underline on hover |
@@ -100,6 +110,7 @@ These keyed styles are opt-in. Nothing happens unless you reference them:
 | `OS2.Button.Flat` | Button | Text-only, low-emphasis (Cancel, Skip) |
 | `OS2.Button.Success` | Button | Solid green — positive confirming action |
 | `OS2.Button.SuccessSecondary` | Button | Outlined green — secondary positive action |
+| `OS2.Separator.Vertical` | Separator | 1 px vertical hairline for horizontal rows |
 | `OS2.Banner.Default` | Border | Grey accent-bar notification |
 | `OS2.Banner.Info` | Border | Blue-tinted notification |
 | `OS2.Banner.Warning` | Border | Amber-tinted notification |

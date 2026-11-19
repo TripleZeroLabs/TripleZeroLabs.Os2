@@ -376,6 +376,171 @@
                     </StackPanel>
                 </Border>
 
+                <!-- ============ Choices, sliders, lists ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <StackPanel>
+                        <TextBlock Text="Choices, Sliders &amp; Lists" Style="{StaticResource Gallery.SectionTitle}"/>
+                        <TextBlock Text="RadioButton, Slider, RepeatButton, GroupBox, ListBox, and ListView with a GridView." Style="{StaticResource Gallery.SectionCaption}"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <GroupBox Header="Export range (GroupBox + RadioButton)" Margin="0,0,0,12">
+                                    <StackPanel>
+                                        <RadioButton Content="Current view" GroupName="GalleryScope" Padding="0,4"/>
+                                        <RadioButton Content="Selected views and sheets" GroupName="GalleryScope" IsChecked="True" Padding="0,4"/>
+                                        <RadioButton Content="Entire project (disabled)" GroupName="GalleryScope" IsEnabled="False" Padding="0,4"/>
+                                    </StackPanel>
+                                </GroupBox>
+                                <Label Content="REPEATBUTTON STEPPER"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <RepeatButton Content="&#x2212;" Click="StepDown_Click"/>
+                                    <TextBox x:Name="StepValue" Text="12" Width="56" Height="32" Margin="6,0" HorizontalContentAlignment="Center"/>
+                                    <RepeatButton Content="+" Click="StepUp_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <Label Content="SLIDER"/>
+                                <Slider Minimum="0" Maximum="100" Value="40" Margin="0,4,0,14"/>
+                                <Label Content="SLIDER (TICKS, SNAP TO 10)"/>
+                                <Slider Minimum="0" Maximum="100" Value="70" TickFrequency="10" TickPlacement="BottomRight" IsSnapToTickEnabled="True" Margin="0,4,0,14"/>
+                                <Label Content="SLIDER (SUCCESS / DISABLED)"/>
+                                <Slider Minimum="0" Maximum="100" Value="85" Foreground="{DynamicResource OS2.Brush.Success}" Margin="0,4,0,10"/>
+                                <Slider Minimum="0" Maximum="100" Value="55" IsEnabled="False"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Label Content="LISTBOX"/>
+                                <ListBox Height="180">
+                                    <ListBoxItem Content="Architectural"/>
+                                    <ListBoxItem Content="Structural" IsSelected="True"/>
+                                    <ListBoxItem Content="Mechanical"/>
+                                    <ListBoxItem Content="Electrical"/>
+                                    <ListBoxItem Content="Plumbing (disabled)" IsEnabled="False"/>
+                                    <ListBoxItem Content="Fire protection"/>
+                                </ListBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <Label Content="LISTVIEW + GRIDVIEW (DRAG THE HEADER EDGES TO RESIZE)"/>
+                                <ListView Height="180" SelectedIndex="1">
+                                    <ListView.Resources>
+                                        <XmlDataProvider x:Key="GallerySheets" XPath="/Sheets/Sheet">
+                                            <x:XData>
+                                                <Sheets xmlns="">
+                                                    <Sheet Number="A101" Name="Level 1 Floor Plan" Rev="C"/>
+                                                    <Sheet Number="A102" Name="Level 2 Floor Plan" Rev="C"/>
+                                                    <Sheet Number="A201" Name="Building Elevations" Rev="B"/>
+                                                    <Sheet Number="A301" Name="Wall Sections" Rev="A"/>
+                                                    <Sheet Number="A501" Name="Door Schedule" Rev="A"/>
+                                                </Sheets>
+                                            </x:XData>
+                                        </XmlDataProvider>
+                                    </ListView.Resources>
+                                    <ListView.ItemsSource>
+                                        <Binding Source="{StaticResource GallerySheets}"/>
+                                    </ListView.ItemsSource>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Number" Width="90" DisplayMemberBinding="{Binding XPath=@Number}"/>
+                                            <GridViewColumn Header="Sheet name" Width="220" DisplayMemberBinding="{Binding XPath=@Name}"/>
+                                            <GridViewColumn Header="Rev" Width="60" DisplayMemberBinding="{Binding XPath=@Rev}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- ============ Menus, toolbars, status, rich text ============ -->
+                <Border Style="{StaticResource Gallery.Card}">
+                    <StackPanel>
+                        <TextBlock Text="Menus, Toolbars, Status &amp; Rich Text" Style="{StaticResource Gallery.SectionTitle}"/>
+                        <TextBlock Text="A small app frame: Menu bar, ToolBarTray, RichTextBox editor, Separator and StatusBar. Open the menus to see icons, check marks, shortcuts and submenus." Style="{StaticResource Gallery.SectionCaption}"/>
+                        <Border BorderBrush="{DynamicResource OS2.Brush.Border}" BorderThickness="1" CornerRadius="6">
+                            <DockPanel>
+                                <Menu DockPanel.Dock="Top">
+                                    <MenuItem Header="_File">
+                                        <MenuItem Header="_New project" InputGestureText="Ctrl+N">
+                                            <MenuItem.Icon><Path Data="M 0.5 0.5 L 7 0.5 L 10.5 4 L 10.5 13.5 L 0.5 13.5 Z M 7 0.5 L 7 4 L 10.5 4" Style="{StaticResource OS2.Path.Glyph}"/></MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="_Open..." InputGestureText="Ctrl+O">
+                                            <MenuItem.Icon><Path Data="M 0.5 2 L 4.5 2 L 6 3.5 L 12.5 3.5 L 12.5 12 L 0.5 12 Z" Style="{StaticResource OS2.Path.Glyph}"/></MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Open _recent">
+                                            <MenuItem Header="Tower-A__Central.rvt"/>
+                                            <MenuItem Header="Podium__Structure.rvt"/>
+                                        </MenuItem>
+                                        <Separator/>
+                                        <MenuItem Header="_Auto-save" IsCheckable="True" IsChecked="True"/>
+                                        <MenuItem Header="Export to _IFC..." InputGestureText="Ctrl+E" IsEnabled="False"/>
+                                        <Separator/>
+                                        <MenuItem Header="E_xit" InputGestureText="Alt+F4"/>
+                                    </MenuItem>
+                                    <MenuItem Header="_Edit">
+                                        <MenuItem Header="_Undo" InputGestureText="Ctrl+Z"/>
+                                        <MenuItem Header="_Redo" InputGestureText="Ctrl+Y"/>
+                                    </MenuItem>
+                                    <MenuItem Header="_View">
+                                        <MenuItem Header="Thin _lines" IsCheckable="True" IsChecked="True"/>
+                                        <MenuItem Header="_Status bar" IsCheckable="True" IsChecked="True"/>
+                                    </MenuItem>
+                                    <MenuItem Header="_Help"/>
+                                </Menu>
+                                <ToolBarTray DockPanel.Dock="Top">
+                                    <ToolBar>
+                                        <Button ToolTip="Save"><Path Data="M 0.5 0.5 L 10 0.5 L 12.5 3 L 12.5 12.5 L 0.5 12.5 Z M 3 0.5 L 3 4 L 9 4 L 9 0.5 M 3 12.5 L 3 8 L 10 8 L 10 12.5" Style="{StaticResource OS2.Path.Glyph}"/></Button>
+                                        <Button ToolTip="Undo"><Path Data="M 4 1 L 1 4 L 4 7 M 1 4 L 8.5 4 A 4 4 0 0 1 8.5 12 L 5 12" Style="{StaticResource OS2.Path.Glyph}"/></Button>
+                                        <Separator/>
+                                        <Button Content="Sync"/>
+                                        <Button Content="Publish" IsEnabled="False"/>
+                                        <Separator/>
+                                        <ToggleButton Content="Snap" IsChecked="True"/>
+                                        <ToggleButton Content="Ortho"/>
+                                        <Separator/>
+                                        <ComboBox Width="120" SelectedIndex="0">
+                                            <ComboBoxItem Content="Level 1"/>
+                                            <ComboBoxItem Content="Level 2"/>
+                                        </ComboBox>
+                                        <CheckBox Content="Thin lines" IsChecked="True"/>
+                                    </ToolBar>
+                                </ToolBarTray>
+                                <StatusBar DockPanel.Dock="Bottom">
+                                    <StatusBarItem DockPanel.Dock="Right" Content="OS2 gallery"/>
+                                    <Separator DockPanel.Dock="Right"/>
+                                    <StatusBarItem DockPanel.Dock="Right">
+                                        <ProgressBar Value="62" Width="100"/>
+                                    </StatusBarItem>
+                                    <StatusBarItem Content="Ready"/>
+                                    <Separator/>
+                                    <StatusBarItem Content="Level 2 - Floor Plan"/>
+                                    <StatusBarItem/>
+                                </StatusBar>
+                                <StackPanel Margin="16">
+                                    <Label Content="RICHTEXTBOX"/>
+                                    <RichTextBox Height="110">
+                                        <FlowDocument>
+                                            <Paragraph><Bold>Issue notes</Bold> for Revision C.</Paragraph>
+                                            <Paragraph>Updated the <Italic>Level 2</Italic> corridor widths and re-tagged doors D-201 to D-214.</Paragraph>
+                                        </FlowDocument>
+                                    </RichTextBox>
+                                    <Separator/>
+                                    <TextBlock Text="A bare Separator draws the hairline above." Style="{StaticResource OS2.Text.Caption}"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
                 <!-- ============ Color palette ============ -->
                 <Border Style="{StaticResource Gallery.Card}">
                     <StackPanel>

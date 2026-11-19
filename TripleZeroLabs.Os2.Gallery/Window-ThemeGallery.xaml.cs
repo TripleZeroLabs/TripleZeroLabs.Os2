@@ -195,5 +195,17 @@ namespace TripleZeroLabs.Os2.Gallery
 
         private void MsgPlain_Click(object sender, RoutedEventArgs e)
             => Os2MessageBox.Show(this, "This is a plain message with no title and no icon.");
+
+        // ── RepeatButton stepper ──────────────────────────────────────────────────
+
+        private void StepDown_Click(object sender, RoutedEventArgs e) => Step(-1);
+
+        private void StepUp_Click(object sender, RoutedEventArgs e) => Step(+1);
+
+        private void Step(int delta)
+        {
+            int.TryParse(StepValue.Text, out int value);
+            StepValue.Text = (value + delta).ToString();
+        }
     }
 }

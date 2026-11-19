@@ -103,8 +103,30 @@ namespace TripleZeroLabs.Os2
             public const string Calendar     = "OS2.Geometry.Calendar";
         }
 
-        /// <summary>Path style for stroked glyphs; Stroke follows the parent Control's Foreground.</summary>
+        /// <summary>Path style for stroked glyphs; Stroke follows the inherited text colour (the parent Control's Foreground).</summary>
         public const string GlyphPath = "OS2.Path.Glyph";
+
+        /// <summary>Separator styles beyond the default horizontal hairline.</summary>
+        public static class Separator
+        {
+            /// <summary>1 px vertical hairline for horizontal rows (toolbars, status bars, button groups).</summary>
+            public const string Vertical = "OS2.Separator.Vertical";
+        }
+
+        /// <summary>Base styles and templates to build your own controls on (use with BasedOn / Template).</summary>
+        public static class Base
+        {
+            /// <summary>Font, size and padding shared by every button-like control (TargetType ButtonBase).</summary>
+            public const string Button = "OS2.ButtonBase";
+            /// <summary>Setters and template shared by TextBox, PasswordBox and RichTextBox (TargetType Control).</summary>
+            public const string TextInput = "OS2.TextInputBase";
+            /// <summary>Setters shared by CheckBox and RadioButton (TargetType ToggleButton).</summary>
+            public const string Choice = "OS2.ChoiceBase";
+            /// <summary>Rounded list row shared by ListBoxItem and the plain-list ListViewItem (TargetType ListBoxItem).</summary>
+            public const string ListItem = "OS2.ListItemBase";
+            /// <summary>Outlined button ControlTemplate (TargetType ButtonBase) used by OS2.Button.Secondary and RepeatButton.</summary>
+            public const string SecondaryButtonTemplate = "OS2.Template.SecondaryButton";
+        }
 
         /// <summary>Shared drop shadow for floating surfaces (drop-downs, menus, tooltips).</summary>
         public const string PopupShadow = "OS2.Effect.PopupShadow";
